@@ -8,7 +8,7 @@ const Home: NextPage = () => {
     <AppLayout>
       <div>
         <h1 className="text-3xl font-bold text-red-400 underline">
-          Hello world AGAIN !
+          Hello world I need!
         </h1>
       </div>
     </AppLayout>
