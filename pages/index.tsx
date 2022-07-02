@@ -7,8 +7,8 @@ const Home: NextPage = () => {
   return (
     <AppLayout>
       <div>
-        <h1 className="text-3xl text-red-400 font-bold underline">
-          Hello world!
+        <h1 className="text-3xl font-bold text-red-400 underline">
+          Hello world AGAIN !
         </h1>
       </div>
     </AppLayout>
