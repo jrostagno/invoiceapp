@@ -1,0 +1,24 @@
+import React from "react";
+import { FaCameraRetro } from "react-icons/fa";
+import { AiOutlinePlus } from "react-icons/ai";
+
+const UploadImages = ({ className }) => {
+  return (
+    <label className={className} htmlFor="dataimg">
+      <input
+        className="hidden"
+        type="file"
+        accept="image/*"
+        name="file"
+        id="dataimg"
+      />
+      <div className="flex items-center justify-center w-32 h-32 overflow-hidden border border-orange-300 rounded-full cursor-pointer">
+        <FaCameraRetro
+          style={{ fontSize: "45px", color: "orange" }}
+        ></FaCameraRetro>
+      </div>
+    </label>
+  );
+};
+
+export default UploadImages;
