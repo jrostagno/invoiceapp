@@ -1,8 +1,10 @@
-import React from "react";
+import React, { FC } from "react";
 import { FaCameraRetro } from "react-icons/fa";
-import { AiOutlinePlus } from "react-icons/ai";
 
-const UploadImages = ({ className }) => {
+interface UploadImagesProps {
+  className: string;
+}
+const UploadImages: FC<UploadImagesProps> = ({ className }) => {
   return (
     <label className={className} htmlFor="dataimg">
       <input

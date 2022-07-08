@@ -1,6 +1,9 @@
-import React from "react";
+import React, { FC } from "react";
 
-const SubPanelInfo = ({ children }) => {
+interface SubPanelInfoTypes {
+  children: React.ReactNode;
+}
+const SubPanelInfo: FC<SubPanelInfoTypes> = ({ children }) => {
   return (
     <div className="flex justify-between p-2 px-4 bg-orange-100 rounded-md">
       {children}

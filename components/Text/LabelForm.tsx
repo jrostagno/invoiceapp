@@ -1,6 +1,11 @@
 import React from "react";
 
-const LabelForm = ({ className, children }) => {
+interface LabelsProps {
+  className: string;
+  children: React.ReactNode;
+}
+
+const LabelForm: React.FC<LabelsProps> = ({ className, children }) => {
   return (
     <label className={`${className || ""} text-orange-700 w-full text-base`}>
       {children}

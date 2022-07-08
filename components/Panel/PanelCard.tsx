@@ -1,5 +1,8 @@
-import React from "react";
-function calcSize(size: string) {
+import React, { FC } from "react";
+
+type Size = "sm" | "med" | "large" | "full" | "xlarge";
+
+function calcSize(size: Size) {
   switch (size) {
     case "sm":
       return "max-w-sm";
@@ -16,7 +19,21 @@ function calcSize(size: string) {
   }
 }
 
-export const PanelCard = ({ className, children, size }) => {
+interface PanelCardsProps {
+  className?: string;
+  children: React.ReactNode;
+  size: Size;
+}
+interface PanelTableProps {
+  children: React.ReactNode;
+  size: Size;
+}
+
+export const PanelCard: FC<PanelCardsProps> = ({
+  className,
+  children,
+  size,
+}) => {
   return (
     <div
       className={` ${className || ""} ${calcSize(
@@ -28,7 +45,7 @@ export const PanelCard = ({ className, children, size }) => {
   );
 };
 
-export const PanelTable = ({ children, size }) => {
+export const PanelTable: FC<PanelTableProps> = ({ children, size }) => {
   return (
     <div
       className={`${calcSize(

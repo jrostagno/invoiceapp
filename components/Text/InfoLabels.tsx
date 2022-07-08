@@ -1,8 +1,16 @@
 import React from "react";
 
-const InfoLabels = ({ children }) => {
+interface InfoLabels {
+  children: React.ReactNode;
+  className?: string;
+}
+const InfoLabels: React.FC<InfoLabels> = ({ children, className }) => {
   return (
-    <label className="text-2xl font-medium text-orange-600">{children}</label>
+    <label
+      className={`${className || ""} text-2xl font-medium text-orange-600`}
+    >
+      {children}
+    </label>
   );
 };
 

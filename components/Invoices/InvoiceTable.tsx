@@ -2,9 +2,25 @@ import React from "react";
 import { FaRegTrashAlt, FaPen, FaDownload } from "react-icons/fa";
 
 const InvoiceTable = () => {
-  const column = ["Date", "Client", "Invoice type", "Total", "Actions"];
+  const column: Array<string> = [
+    "Date",
+    "Client",
+    "Invoice type",
+    "Total",
+    "Actions",
+  ];
 
-  const list = [
+  interface InvoiceTypes {
+    listElement: {
+      date: string;
+      client: string;
+      type: string;
+      amount: number;
+      action: any;
+    }[];
+  }
+
+  const list: InvoiceTypes["listElement"] = [
     {
       date: "06/07/2022",
       client: "Final consumer",

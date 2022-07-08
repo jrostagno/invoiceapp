@@ -1,5 +1,5 @@
-import React from "react";
-import Select from "react-select";
+import React, { useState } from "react";
+import Select, { GroupBase, Option, OptionsOrGroups } from "react-select";
 
 export const customStyles = {
   control: () => ({
@@ -14,7 +14,21 @@ export const customStyles = {
   }),
 };
 
-const Selector = ({ options, placeholder, handleChange, value, id = null }) => {
+interface SelectorProps {
+  options: OptionsOrGroups<string, GroupBase<string>>;
+  placeholder: string;
+  handleChange: () => void;
+  id?: string;
+  value: string;
+}
+
+const Selector: React.FC<SelectorProps> = ({
+  options,
+  placeholder,
+  handleChange,
+  value,
+  id,
+}) => {
   return (
     <Select
       id={id}
@@ -22,7 +36,7 @@ const Selector = ({ options, placeholder, handleChange, value, id = null }) => {
       placeholder={placeholder}
       styles={customStyles}
       value={value}
-      handleChange={handleChange}
+      onChange={handleChange}
       theme={(theme) => ({
         ...theme,
         colors: {

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { FC } from "react";
 
-function calcSize(s) {
+function calcSize(s: Size) {
   switch (s) {
     case "xs":
       return "max-w-xs";
@@ -16,7 +16,17 @@ function calcSize(s) {
       return "max-w-7xl";
   }
 }
-export const Panel = ({
+
+type Size = "xs" | "sm" | "med" | "lg" | "full";
+
+interface PanelProps {
+  children: React.ReactNode;
+  className?: string;
+  size: Size;
+  color?: string;
+}
+
+export const Panel: FC<PanelProps> = ({
   children,
   className,
   size = "lg",
