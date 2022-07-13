@@ -20,7 +20,7 @@ const ButtonPrimary: FC<ButtonsPrimaryProps> = ({
     <button
       className={`${className || ""} ${
         disabled ? "opacity-25 cursor-not-allowed" : ""
-      } text-white bg-orange-600 ${btnStyles}`}
+      } text-white bg-gray-600 ${btnStyles}`}
       disabled={disabled}
       {...props}
     >

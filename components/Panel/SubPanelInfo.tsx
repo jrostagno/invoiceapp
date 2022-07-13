@@ -5,7 +5,7 @@ interface SubPanelInfoTypes {
 }
 const SubPanelInfo: FC<SubPanelInfoTypes> = ({ children }) => {
   return (
-    <div className="flex justify-between p-2 px-4 bg-orange-100 rounded-md">
+    <div className="flex justify-between p-2 px-4 bg-gray-100 rounded-md">
       {children}
     </div>
   );

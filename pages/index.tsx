@@ -1,22 +1,28 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
+
 import AppLayout from "../components/Layout/AppLayout";
-import CategoryCard from "../components/Cards/CategoryCard";
-import InfoCard from "../components/Cards/InfoCard";
-import YearlyInvoice from "../components/Cards/YearlyInvoice";
-import InvoicePanel from "../components/Invoices/InvoicePanel";
-import MyModal from "../components/Modal/Dialog";
+import { useRouter } from "next/router";
+
 import LabelForm from "../components/Text/LabelForm";
 import InputForm from "../components/input/InputForm";
 import { PanelCard } from "../components/Panel/PanelCard";
 import ButtonPrimary from "../components/Button/ButtonPrimary";
 import Subtitle from "../components/Text/Subtitle";
-import GuestLayout from "../components/Layout/GuestLayout";
+import { useSession, signIn } from "next-auth/react";
+import { useEffect } from "react";
 
 const Home: NextPage = () => {
+  const router = useRouter();
+
+  const { data: session, status } = useSession();
+
+  if (status !== "loading" && status === "authenticated") {
+    router.push("/invoices");
+  }
+
   return (
-    <AppLayout guest>
+    <AppLayout>
       <Head>
         <title>Invoiceapp</title>
       </Head>
@@ -48,6 +54,14 @@ const Home: NextPage = () => {
               <Subtitle className="mt-2 text-center cursor-pointer">
                 I want to register !
               </Subtitle>
+            </div>
+            <div className="flex flex-col justify-center gap-2 px-4">
+              <ButtonPrimary
+                onClick={() => router.push("/api/auth/signin")}
+                className="w-full text-white bg-black"
+              >
+                Register with GitHub
+              </ButtonPrimary>
             </div>
           </form>
         </PanelCard>

@@ -7,7 +7,7 @@ interface LabelsProps {
 
 const LabelForm: React.FC<LabelsProps> = ({ className, children }) => {
   return (
-    <label className={`${className || ""} text-orange-700 w-full text-base`}>
+    <label className={`${className || ""} text-gray-700 w-full text-base`}>
       {children}
     </label>
   );

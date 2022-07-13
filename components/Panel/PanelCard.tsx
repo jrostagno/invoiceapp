@@ -50,7 +50,7 @@ export const PanelTable: FC<PanelTableProps> = ({ children, size }) => {
     <div
       className={`${calcSize(
         size
-      )}  py-6 mb-4 bg-white border rounded-md shadow-md`}
+      )}  py-6 my-8 mb-4 bg-white border rounded-md shadow-md`}
     >
       {children}
     </div>

@@ -4,10 +4,10 @@ import ButtonDanger from "../components/Button/ButtonDanger";
 import ButtonPrimary from "../components/Button/ButtonPrimary";
 import InputForm from "../components/input/InputForm";
 import AppLayout from "../components/Layout/AppLayout";
-import { Panel } from "../components/Panel/Panel";
+
 import { PanelCard } from "../components/Panel/PanelCard";
 import LabelForm from "../components/Text/LabelForm";
-import Subtitle from "../components/Text/Subtitle";
+
 import Title from "../components/Text/Title";
 
 const register = () => {

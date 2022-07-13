@@ -14,9 +14,9 @@ const UploadImages: FC<UploadImagesProps> = ({ className }) => {
         name="file"
         id="dataimg"
       />
-      <div className="flex items-center justify-center w-32 h-32 overflow-hidden border border-orange-300 rounded-full cursor-pointer">
+      <div className="flex items-center justify-center w-32 h-32 overflow-hidden border border-gray-400 rounded-full cursor-pointer">
         <FaCameraRetro
-          style={{ fontSize: "45px", color: "orange" }}
+          style={{ fontSize: "45px", color: "gray" }}
         ></FaCameraRetro>
       </div>
     </label>
