@@ -2,12 +2,11 @@ import React, { FC } from "react";
 
 function calcSize(s: Size) {
   switch (s) {
-    case "xs":
-      return "max-w-xs";
     case "sm":
+      return "max-w-xs";
+    case "md":
       return "max-w-2xl";
-    case "med":
-      return "max-w-4xl";
+
     case "full":
       return "max-w-full";
     case "lg":
@@ -17,7 +16,7 @@ function calcSize(s: Size) {
   }
 }
 
-type Size = "xs" | "sm" | "med" | "lg" | "full";
+type Size = "sm" | "md" | "lg" | "full";
 
 interface PanelProps {
   children: React.ReactNode;

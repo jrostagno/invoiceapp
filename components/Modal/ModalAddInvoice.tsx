@@ -101,7 +101,6 @@ const ModalAddInvoice = ({
             <ButtonDanger
               onClick={() => {
                 setIsOpen(false);
-                setIsEdit(false);
               }}
               className="mr-2"
             >

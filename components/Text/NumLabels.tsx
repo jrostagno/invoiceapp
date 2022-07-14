@@ -7,7 +7,7 @@ interface NumLabelsProps {
 
 const NumLabels: React.FC<NumLabelsProps> = ({ children, className }) => {
   return (
-    <label className={`${className || ""} text-2xl text-slate-600`}>
+    <label className={`${className || ""} text-xl text-slate-600`}>
       {children}
     </label>
   );

@@ -5,9 +5,17 @@ const InvoiceSchema = new mongoose.Schema({
     type: Number,
     required: [true, "Enter amount"],
   },
+  name: {
+    type: String,
+  },
   date: {
     type: Date,
     required: [true, "Enter Date"],
+  },
+  email: {
+    type: String,
+    lowercase: true,
+    required: [true, "Enter Email"],
   },
   supplier: {
     type: String,
@@ -17,6 +25,8 @@ const InvoiceSchema = new mongoose.Schema({
     type: String,
     required: [true, "Enter invoice type"],
   },
+
+  createdAt: { type: Date, default: Date.now },
 });
 
 export default mongoose.models.Invoice ||

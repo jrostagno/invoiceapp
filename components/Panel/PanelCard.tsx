@@ -1,18 +1,18 @@
 import React, { FC } from "react";
 
-type Size = "sm" | "med" | "large" | "full" | "xlarge";
+type Size = "sm" | "md" | "lg" | "full" | "xl";
 
 function calcSize(size: Size) {
   switch (size) {
     case "sm":
       return "max-w-sm";
-    case "med":
+    case "md":
       return "max-w-xl";
-    case "large":
+    case "lg":
       return "max-w-2xl";
     case "full":
       return "max-w-full";
-    case "xlarge":
+    case "xl":
       return "max-w-3xl";
     default:
       return "max-w-xl";
@@ -50,7 +50,7 @@ export const PanelTable: FC<PanelTableProps> = ({ children, size }) => {
     <div
       className={`${calcSize(
         size
-      )}  py-6 my-8 mb-4 bg-white border rounded-md shadow-md`}
+      )}  py-6 mx-auto my-8 mb-4 bg-white border rounded-md shadow-md`}
     >
       {children}
     </div>

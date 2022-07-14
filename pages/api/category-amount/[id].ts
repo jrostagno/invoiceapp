@@ -39,5 +39,4 @@ export default async function handler(
         .status(500)
         .json({ success: false, error: "falla del servicor" });
   }
-  res.status(200).json({ name: "John Doe" });
 }

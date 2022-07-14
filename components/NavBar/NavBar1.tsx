@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
 import React, { useState } from "react";
 import { signOut } from "next-auth/react";
@@ -26,13 +27,13 @@ const NavBar1 = ({ session }) => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="2"
+                // stroke-width="2"
                 stroke="currentColor"
                 aria-hidden="true"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  // stroke-linecap="round"
+                  // stroke-linejoin="round"
                   d="M4 6h16M4 12h16M4 18h16"
                 />
               </svg>
@@ -42,13 +43,13 @@ const NavBar1 = ({ session }) => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="2"
+                // stroke-width="2"
                 stroke="currentColor"
                 aria-hidden="true"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  // stroke-linecap="round"
+                  // stroke-linejoin="round"
                   d="M6 18L18 6M6 6l12 12"
                 />
               </svg>
@@ -120,21 +121,17 @@ const NavBar1 = ({ session }) => {
                 role="menu"
                 aria-orientation="vertical"
                 aria-labelledby="user-menu-button"
-                tabindex="-1"
               >
                 <button
                   className="block px-4 py-2 text-sm text-gray-700"
                   role="menuitem"
-                  tabindex="-1"
                   id="user-menu-item-0"
                 >
                   Your Profile
                 </button>
                 <button
-                  href="#"
                   className="block px-4 py-2 text-sm text-gray-700"
                   role="menuitem"
-                  tabindex="-1"
                   id="user-menu-item-1"
                 >
                   Settings
@@ -143,7 +140,6 @@ const NavBar1 = ({ session }) => {
                   onClick={() => signOut()}
                   className="block px-4 py-2 text-sm text-gray-700"
                   role="menuitem"
-                  tabindex="-1"
                   id="user-menu-item-2"
                 >
                   Sign out

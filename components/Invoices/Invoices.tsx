@@ -5,8 +5,9 @@ import Table from "../Table/Table";
 import DialogModal from "../Modal/Dialog";
 import ModalAddInvoice from "../Modal/ModalAddInvoice";
 import { FaRegTrashAlt, FaPen, FaDownload } from "react-icons/fa";
+import { parse } from "path";
 
-const Invoices = () => {
+const Invoices = ({ session }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [allInvoices, setAllInvoices] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
@@ -46,6 +47,8 @@ const Invoices = () => {
           amount: form.amount,
           supplier: supplier.value,
           invoiceType: invoiceType.value,
+          email: session.user.email,
+          name: session.user.name,
         },
         invoiceId
       );
@@ -55,6 +58,8 @@ const Invoices = () => {
         amount: form.amount,
         supplier: supplier.value,
         invoiceType: invoiceType.value,
+        email: session.user.email,
+        name: session.user.name,
       });
     }
     getAllInvoices();
@@ -182,15 +187,15 @@ const Invoices = () => {
     ),
   ];
 
-  const parseInvoices = () => {
-    return allInvoices.map((el) => {
-      el.date = el.date.slice(0, 10);
+  const parseAllInvoices = allInvoices.map((el) => {
+    el.date = el.date.slice(0, 10);
 
-      return el;
-    });
-  };
+    return el;
+  });
 
-  console.log(parseInvoices());
+  const userInvoices = parseAllInvoices.filter(
+    (invoices) => invoices.email === session.user.email
+  );
 
   const handleAddInvoice = () => {
     setIsOpen(true);
@@ -200,8 +205,8 @@ const Invoices = () => {
   };
 
   return (
-    <PanelTable size="full">
-      <Table columns={columns} list={allInvoices} cells={cells}></Table>
+    <>
+      <Table columns={columns} list={userInvoices} cells={cells}></Table>
       <div className="flex justify-end">
         <ButtonPrimary onClick={() => handleAddInvoice()} className="mx-6 mt-6">
           Add invoice
@@ -229,7 +234,7 @@ const Invoices = () => {
         setIsOpen={setIsOpen}
         isOpen={isOpen}
       ></DialogModal>
-    </PanelTable>
+    </>
   );
 };
 

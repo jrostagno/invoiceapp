@@ -6,7 +6,7 @@ interface InfoLabels {
 }
 const InfoLabels: React.FC<InfoLabels> = ({ children, className }) => {
   return (
-    <label className={`${className || ""} text-2xl font-medium text-gray-600`}>
+    <label className={`${className || ""} text-xl font-medium text-gray-600`}>
       {children}
     </label>
   );
