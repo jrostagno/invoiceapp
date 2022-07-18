@@ -14,26 +14,35 @@ import { useEffect, useState } from "react";
 
 import { PanelCard, PanelTable } from "../../components/Panel/PanelCard";
 
-const Dashboard: NextPage = ({ session }) => {
+import dbConnect from "../../lib/dbConnect";
+import User from "../../models/User";
+import {
+  editCategoryAmount,
+  getCalculation,
+  getUserCategory,
+  getUserInvoices,
+  postCategoryAmount,
+} from "../../services/invoices";
+import { formatNumber } from "../../services/formaters";
+
+const Dashboard: NextPage = ({ session, user }) => {
   const router = useRouter();
-  const [user, setUser] = useState({
-    userName: "",
-    userPhoto: "",
-    userEmail: "",
-  });
+
   const [category, setCategory] = useState(0);
-  const [currentAmount, setCurrentAmount] = useState(0);
+  const [userCategory, setUserCategory] = useState("");
+
   const [isDisabled, setIsDisabled] = useState(false);
   const [invoices, setInvoices] = useState([]);
+  const [yearlyInvoiced, setYearlyInvoiced] = useState(0);
 
   useEffect(() => {
-    getCategories();
-    getAllInvoices();
-
-    setUser({
-      userName: session.user.name,
-      userPhoto: session.user.image,
-      userEmail: session.user.email,
+    getUserInvoices(user._id).then((res) => setInvoices(res.data));
+    getCalculation(user._id).then((res) => setYearlyInvoiced(res.data));
+    getUserCategory(user._id).then((res) => {
+      if (res.success) {
+        setUserCategory(res.data[0]);
+        setIsDisabled(true);
+      }
     });
   }, []);
 
@@ -44,72 +53,24 @@ const Dashboard: NextPage = ({ session }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isDisabled) {
-      editCategoryAmount({
-        amount: category,
-        email: session.user.email,
-        name: session.user.name,
-      });
+      editCategoryAmount(
+        {
+          amount: category,
+          userId: user._id,
+        },
+        userCategory._id
+      );
+      getUserCategory(user._id);
     } else {
       postCategoryAmount({
         amount: category,
-        email: session.user.email,
-        name: session.user.name,
-      });
-    }
-  };
-
-  const getAllInvoices = () => {
-    fetch("/api/invoice")
-      .then((res) => res.json())
-      .then((res) => {
-        setInvoices(
-          res.data.filter((invoice) => invoice.email === session.user.email)
-        );
-      });
-  };
-
-  const getCategories = () => {
-    fetch("/api/category-amount")
-      .then((res) => res.json())
-      .then((res) => {
-        const userAmount = res.data.find(
-          (category) => category.email === session.user.email
-        );
-
-        if (userAmount) {
+        userId: user._id,
+      }).then((data) => {
+        if (data.success) {
           setIsDisabled(true);
-          setCurrentAmount(userAmount);
-        } else {
-          setIsDisabled(false);
         }
       });
-  };
-
-  const editCategoryAmount = async (newAmount) => {
-    try {
-      const res = await fetch(`/api/category-amount/${currentAmount._id}`, {
-        method: "PUT",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(newAmount),
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const postCategoryAmount = async (amount) => {
-    try {
-      const res = await fetch("/api/category-amount", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(amount),
-      });
-
-      const data = await res.json();
-      if (data.success) {
-        setIsDisabled(true);
-      }
-    } catch (error) {
-      console.log(error);
+      getUserCategory(user._id);
     }
   };
 
@@ -128,24 +89,34 @@ const Dashboard: NextPage = ({ session }) => {
             ></CategoryCard>
           </PanelCard>
           <PanelCard size="md">
-            <InfoCard></InfoCard>
+            <InfoCard
+              invoiceLimit={formatNumber(userCategory?.amount) || "0"}
+              currentMonth={formatNumber(yearlyInvoiced.currentMonth)}
+              lastMonth={formatNumber(yearlyInvoiced.lastMonthAmount)}
+            ></InfoCard>
           </PanelCard>
         </div>
         <div className="w-full">
           <PanelCard size="lg">
             <YearlyInvoice
               label="Yearly Invoice"
-              amount={currentAmount.amount}
+              amount={formatNumber(yearlyInvoiced.yearly)}
             ></YearlyInvoice>
           </PanelCard>
           <PanelCard size="lg">
             <YearlyInvoice
               label="Annual billing allowed"
-              amount={currentAmount.amount}
+              amount={formatNumber(userCategory?.amount) || "0"}
             ></YearlyInvoice>
           </PanelCard>
           <PanelTable size="lg">
-            <Invoices session={session}></Invoices>
+            <Invoices
+              setYearlyInvoiced={setYearlyInvoiced}
+              setInvoices={setInvoices}
+              user={user}
+              invoices={invoices}
+              session={session}
+            ></Invoices>
           </PanelTable>
         </div>
       </div>
@@ -165,10 +136,22 @@ export const getServerSideProps = async (context) => {
         permanent: false,
       },
     };
+  await dbConnect();
+
+  const res = await User.find({});
+
+  const users = res.map((doc) => {
+    const user = doc.toObject();
+    user._id = `${user._id}`;
+    return user;
+  });
+
+  const user = users.find((user) => user.email === session.user.email);
 
   return {
     props: {
       session,
+      user,
     },
   };
 };

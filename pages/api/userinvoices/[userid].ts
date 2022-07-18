@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
+import Invoice from "../../../models/Invoice";
 import conectarDB from "../../../lib/dbConnect";
-import Category from "../../../models/Category";
 
 type Data = {
   name: string;
@@ -13,34 +13,20 @@ export default async function handler(
 ) {
   const {
     method,
-    query: { id },
+    query: { userid },
   } = req;
 
   await conectarDB();
 
   switch (method) {
-    case "PUT":
-      try {
-        const amountUpdate = await Category.findByIdAndUpdate(id, req.body, {
-          new: true,
-          runValidators: true,
-        });
-
-        if (!amountUpdate) {
-          return res.status(404).json({ success: false });
-        }
-        return res.status(200).json({ success: true, data: amountUpdate });
-      } catch (error) {
-        return res.status(404).json({ success: false, error });
-      }
-
     case "GET":
       try {
-        const category = await Category.findById(id);
-        if (!category) {
+        const invoices = await Invoice.find({ userId: userid });
+
+        if (!invoices) {
           return res.status(404).json({ success: false });
         }
-        return res.status(200).json({ success: true, data: category });
+        return res.status(200).json({ success: true, data: invoices });
       } catch (error) {
         return res.status(404).json({ success: false, error });
       }

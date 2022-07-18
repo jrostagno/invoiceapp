@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
+
 import conectarDB from "../../../lib/dbConnect";
 import Category from "../../../models/Category";
 
@@ -13,32 +14,20 @@ export default async function handler(
 ) {
   const {
     method,
-    query: { id },
+    query: { userid },
   } = req;
 
   await conectarDB();
 
   switch (method) {
-    case "PUT":
-      try {
-        const amountUpdate = await Category.findByIdAndUpdate(id, req.body, {
-          new: true,
-          runValidators: true,
-        });
-
-        if (!amountUpdate) {
-          return res.status(404).json({ success: false });
-        }
-        return res.status(200).json({ success: true, data: amountUpdate });
-      } catch (error) {
-        return res.status(404).json({ success: false, error });
-      }
-
     case "GET":
       try {
-        const category = await Category.findById(id);
-        if (!category) {
-          return res.status(404).json({ success: false });
+        const category = await Category.find({ userId: userid });
+
+        if (category.length === 0) {
+          return res
+            .status(200)
+            .json({ success: false, data: "No category load.." });
         }
         return res.status(200).json({ success: true, data: category });
       } catch (error) {

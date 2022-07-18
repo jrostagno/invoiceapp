@@ -8,6 +8,9 @@ const InvoiceSchema = new mongoose.Schema({
   name: {
     type: String,
   },
+  userId: {
+    type: String,
+  },
   date: {
     type: Date,
     required: [true, "Enter Date"],

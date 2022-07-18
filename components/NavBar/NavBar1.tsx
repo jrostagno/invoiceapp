@@ -20,8 +20,6 @@ const NavBar1 = ({ session }) => {
               aria-controls="mobile-menu"
               aria-expanded="false"
             >
-              <span className="sr-only">Open main menu</span>
-
               <svg
                 className="block w-6 h-6"
                 xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +93,7 @@ const NavBar1 = ({ session }) => {
                   <button
                     type="button"
                     onClick={() => handleMenu()}
-                    className="flex text-sm bg-gray-800 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                    className="relative z-10 flex text-sm bg-gray-800 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                     id="user-menu-button"
                     aria-expanded="false"
                     aria-haspopup="true"
@@ -111,11 +109,17 @@ const NavBar1 = ({ session }) => {
                   </button>
                 </div>
               </div>
-
+              {openMenu && (
+                <button
+                  tabindex="-1"
+                  onClick={() => handleMenu()}
+                  className="fixed top-0 left-0 right-0 w-full h-full bg-black cursor-default opacity-20 button-o"
+                ></button>
+              )}
               <div
                 className={
                   openMenu
-                    ? `absolute right-0 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`
+                    ? `absolute right-0 w-48 py-1 mt-2 origin-top-right  bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`
                     : `hidden`
                 }
                 role="menu"
@@ -123,14 +127,14 @@ const NavBar1 = ({ session }) => {
                 aria-labelledby="user-menu-button"
               >
                 <button
-                  className="block px-4 py-2 text-sm text-gray-700"
+                  className="block w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-gray-100"
                   role="menuitem"
                   id="user-menu-item-0"
                 >
                   Your Profile
                 </button>
                 <button
-                  className="block px-4 py-2 text-sm text-gray-700"
+                  className="block w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-gray-100"
                   role="menuitem"
                   id="user-menu-item-1"
                 >
@@ -138,7 +142,7 @@ const NavBar1 = ({ session }) => {
                 </button>
                 <button
                   onClick={() => signOut()}
-                  className="block px-4 py-2 text-sm text-gray-700"
+                  className="block w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-gray-100"
                   role="menuitem"
                   id="user-menu-item-2"
                 >

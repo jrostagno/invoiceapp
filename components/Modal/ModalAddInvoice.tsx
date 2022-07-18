@@ -11,17 +11,13 @@ import { FaDownload } from "react-icons/fa";
 const ModalAddInvoice = ({
   setIsOpen,
   isEdit,
-  setIsEdit,
   form,
-  setForm,
   supplier,
   setSupplier,
   invoiceType,
   setInvoiceType,
-  errorMessage,
   handleSubmit,
   handleOnChange,
-  setErrorMessage,
 }) => {
   return (
     <>

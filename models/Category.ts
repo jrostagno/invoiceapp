@@ -5,15 +5,11 @@ const categorySchema = new mongoose.Schema({
     type: Number,
     required: [true, "Enter amount"],
   },
-  email: {
+  userId: {
     type: String,
-    lowercase: true,
-    required: [true, "Enter Email"],
   },
+
   createdAt: { type: Date, default: Date.now },
-  name: {
-    type: String,
-  },
 });
 
 export default mongoose.models.Category ||

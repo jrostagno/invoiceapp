@@ -5,20 +5,20 @@ import SubPanelInfo from "../Panel/SubPanelInfo";
 import InfoLabels from "../Text/InfoLabels";
 import NumLabels from "../Text/NumLabels";
 
-const InfoCard = () => {
+const InfoCard = ({ invoiceLimit, currentMonth, lastMonth }) => {
   return (
     <div className="flex flex-col gap-2 p-3">
       <SubPanelInfo>
         <InfoLabels>Invoice limits</InfoLabels>
-        <NumLabels>$ 20000</NumLabels>
+        <NumLabels>{invoiceLimit}</NumLabels>
       </SubPanelInfo>
       <SubPanelInfo>
         <InfoLabels>Current month invoicing</InfoLabels>
-        <NumLabels>$ 20000</NumLabels>
+        <NumLabels>{currentMonth}</NumLabels>
       </SubPanelInfo>
       <SubPanelInfo>
         <InfoLabels>Last month invoncing</InfoLabels>
-        <NumLabels>$ 20000</NumLabels>
+        <NumLabels>{lastMonth}</NumLabels>
       </SubPanelInfo>
     </div>
   );
