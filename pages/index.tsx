@@ -57,7 +57,7 @@ const Home: NextPage = () => {
             </div>
             <div className="flex flex-col justify-center gap-2 px-4">
               <ButtonPrimary
-                onClick={() => router.push("/api/auth/signin")}
+                onClick={() => signIn()}
                 className="w-full text-white bg-black"
               >
                 Register with GitHub
