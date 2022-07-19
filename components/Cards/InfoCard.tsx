@@ -1,3 +1,4 @@
+import moment from "moment";
 import PagesManifestPlugin from "next/dist/build/webpack/plugins/pages-manifest-plugin";
 import React from "react";
 import { PanelCard } from "../Panel/PanelCard";
@@ -13,11 +14,18 @@ const InfoCard = ({ invoiceLimit, currentMonth, lastMonth }) => {
         <NumLabels>{invoiceLimit}</NumLabels>
       </SubPanelInfo>
       <SubPanelInfo>
-        <InfoLabels>Current month invoicing</InfoLabels>
+        <InfoLabels>
+          {`  Current month invoicing
+          (${moment().subtract(1, "month").format("MMM YYYY")} ) `}
+        </InfoLabels>
         <NumLabels>{currentMonth}</NumLabels>
       </SubPanelInfo>
       <SubPanelInfo>
-        <InfoLabels>Last month invoncing</InfoLabels>
+        <InfoLabels>
+          {" "}
+          {`  Last month invoicing
+          (${moment().subtract(2, "month").format("MMM YYYY")} ) `}
+        </InfoLabels>
         <NumLabels>{lastMonth}</NumLabels>
       </SubPanelInfo>
     </div>

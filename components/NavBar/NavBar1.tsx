@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { signOut } from "next-auth/react";
 
+import Link from "next/link";
+
 const NavBar1 = ({ session }) => {
   const [openMenu, setOpenMenu] = useState(false);
 
@@ -25,15 +27,10 @@ const NavBar1 = ({ session }) => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                // stroke-width="2"
                 stroke="currentColor"
                 aria-hidden="true"
               >
-                <path
-                  // stroke-linecap="round"
-                  // stroke-linejoin="round"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
+                <path d="M4 6h16M4 12h16M4 18h16" />
               </svg>
 
               <svg
@@ -41,15 +38,10 @@ const NavBar1 = ({ session }) => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                // stroke-width="2"
                 stroke="currentColor"
                 aria-hidden="true"
               >
-                <path
-                  // stroke-linecap="round"
-                  // stroke-linejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
+                <path d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
@@ -65,10 +57,13 @@ const NavBar1 = ({ session }) => {
                 src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
                 alt="Workflow"
               /> */}
-
-              <h1 className="text-3xl font-normal tracking-wide text-white">
-                InvoiceApp
-              </h1>
+              <Link href="/invoices">
+                <a>
+                  <h1 className="text-3xl font-normal tracking-wide text-white">
+                    InvoiceApp
+                  </h1>
+                </a>
+              </Link>
             </div>
             <div className="hidden sm:block sm:ml-6">
               <div className="flex space-x-4">
@@ -126,13 +121,17 @@ const NavBar1 = ({ session }) => {
                 aria-orientation="vertical"
                 aria-labelledby="user-menu-button"
               >
-                <button
-                  className="block w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-gray-100"
-                  role="menuitem"
-                  id="user-menu-item-0"
-                >
-                  Your Profile
-                </button>
+                <Link href="/profile">
+                  <a>
+                    <button
+                      className="block w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-gray-100"
+                      role="menuitem"
+                      id="user-menu-item-0"
+                    >
+                      Your Profile
+                    </button>
+                  </a>
+                </Link>
                 <button
                   className="block w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-gray-100"
                   role="menuitem"

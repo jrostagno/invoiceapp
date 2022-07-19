@@ -25,11 +25,13 @@ import {
 } from "../../services/invoices";
 import { formatNumber } from "../../services/formaters";
 
+import AddCategoryLimit from "../../components/Cards/AddCategoryLimit";
+
 const Dashboard: NextPage = ({ session, user }) => {
   const router = useRouter();
 
   const [category, setCategory] = useState(0);
-  const [userCategory, setUserCategory] = useState("");
+  const [userCategory, setUserCategory] = useState({ amount: 0 });
 
   const [isDisabled, setIsDisabled] = useState(false);
   const [invoices, setInvoices] = useState([]);
@@ -50,19 +52,19 @@ const Dashboard: NextPage = ({ session, user }) => {
     setCategory(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (isDisabled) {
-      editCategoryAmount(
+      await editCategoryAmount(
         {
           amount: category,
           userId: user._id,
         },
-        userCategory._id
+        userCategory?._id
       );
-      getUserCategory(user._id);
+      getUserCategory(user._id).then((res) => setUserCategory(res.data[0]));
     } else {
-      postCategoryAmount({
+      await postCategoryAmount({
         amount: category,
         userId: user._id,
       }).then((data) => {
@@ -70,7 +72,7 @@ const Dashboard: NextPage = ({ session, user }) => {
           setIsDisabled(true);
         }
       });
-      getUserCategory(user._id);
+      getUserCategory(user._id).then((res) => setUserCategory(res.data[0]));
     }
   };
 
@@ -79,34 +81,44 @@ const Dashboard: NextPage = ({ session, user }) => {
       <Head>
         <title>Invoiceapp</title>
       </Head>
-      <div className="flex flex-col justify-around md:flex-row">
+      <div className="flex flex-col-reverse md:flex-row">
         <div className="w-full">
-          <PanelCard size="md">
+          {!isDisabled && <AddCategoryLimit></AddCategoryLimit>}
+          <PanelCard size="lg">
             <CategoryCard
               handleChange={handleChange}
               handleSubmit={handleSubmit}
               isDisabled={isDisabled}
             ></CategoryCard>
           </PanelCard>
-          <PanelCard size="md">
+
+          <PanelCard className={!isDisabled ? "hidden" : ""} size="lg">
+            <YearlyInvoice
+              label="Remaining amount "
+              amount={formatNumber(
+                userCategory?.amount - yearlyInvoiced.yearly
+              )}
+            ></YearlyInvoice>
+          </PanelCard>
+          <PanelCard className={!isDisabled ? "hidden" : ""} size="lg">
+            <YearlyInvoice
+              label="Annual billing allowed"
+              amount={formatNumber(userCategory?.amount) || "0"}
+            ></YearlyInvoice>
+          </PanelCard>
+          <PanelCard className={!isDisabled ? "hidden" : ""} size="lg">
             <InfoCard
-              invoiceLimit={formatNumber(userCategory?.amount) || "0"}
+              invoiceLimit={formatNumber(userCategory.amount) || "0"}
               currentMonth={formatNumber(yearlyInvoiced.currentMonth)}
               lastMonth={formatNumber(yearlyInvoiced.lastMonthAmount)}
             ></InfoCard>
           </PanelCard>
         </div>
-        <div className="w-full">
+        <div className={!isDisabled ? "hidden w-full" : "w-full"}>
           <PanelCard size="lg">
             <YearlyInvoice
-              label="Yearly Invoice"
+              label="Yearly Invoice (last 12 months)"
               amount={formatNumber(yearlyInvoiced.yearly)}
-            ></YearlyInvoice>
-          </PanelCard>
-          <PanelCard size="lg">
-            <YearlyInvoice
-              label="Annual billing allowed"
-              amount={formatNumber(userCategory?.amount) || "0"}
             ></YearlyInvoice>
           </PanelCard>
           <PanelTable size="lg">

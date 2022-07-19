@@ -1,7 +1,7 @@
 import React from "react";
 const InvoiceTable = ({ list, cells, columns }) => {
   return (
-    <table className="w-full table-auto">
+    <table className="w-full border-b table-auto">
       <thead className="top-0">
         <tr>
           {columns.map((el, i) => (

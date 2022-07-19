@@ -16,6 +16,9 @@ import {
 } from "../../services/invoices";
 import { dateFormater, formatNumber } from "../../services/formaters";
 import ModalDelete from "../Modal/ModalDelete";
+import { listeners } from "process";
+import Title from "../Text/Title";
+import InfoLabels from "../Text/InfoLabels";
 
 const Invoices = ({
   session,
@@ -177,6 +180,11 @@ const Invoices = ({
           ),
         ]}
       ></Table>
+      {invoices.length === 0 && (
+        <div className="flex items-center justify-center w-full p-14">
+          <InfoLabels>No invoices loaded yet...</InfoLabels>
+        </div>
+      )}
       <div className="flex justify-end">
         <ButtonPrimary onClick={() => handleAddInvoice()} className="mx-6 mt-6">
           Add invoice
