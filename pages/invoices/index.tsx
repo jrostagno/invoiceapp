@@ -26,8 +26,11 @@ import {
 import { formatNumber } from "../../services/formaters";
 
 import AddCategoryLimit from "../../components/Cards/AddCategoryLimit";
+import Session from "../../models/Session";
 
-const Dashboard: NextPage = ({ session, user }) => {
+const Dashboard: NextPage = ({ session, user, currentSessionparse }) => {
+  console.log(user);
+
   const router = useRouter();
 
   const [category, setCategory] = useState(0);
@@ -81,7 +84,7 @@ const Dashboard: NextPage = ({ session, user }) => {
       <Head>
         <title>Invoiceapp</title>
       </Head>
-      <div className="flex flex-col-reverse md:flex-row">
+      <div className="flex flex-col-reverse gap-4 md:flex-row">
         <div className="w-full">
           {!isDisabled && <AddCategoryLimit></AddCategoryLimit>}
           <PanelCard size="lg">
@@ -150,6 +153,15 @@ export const getServerSideProps = async (context) => {
     };
   await dbConnect();
 
+  const currentSession = await Session.find({});
+  const currentSessionparse = currentSession.map((doc) => {
+    const se = doc.toObject();
+    se._id = `${se._id}`;
+    se.userId = `${se.userId}`;
+    se.expires = `${se.expires}`;
+    return se;
+  });
+
   const res = await User.find({});
 
   const users = res.map((doc) => {
@@ -158,12 +170,13 @@ export const getServerSideProps = async (context) => {
     return user;
   });
 
-  const user = users.find((user) => user.email === session.user.email);
+  const user = users.find((user) => user.name === session.user.name);
 
   return {
     props: {
       session,
       user,
+      currentSessionparse,
     },
   };
 };

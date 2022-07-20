@@ -15,11 +15,7 @@ const InvoiceSchema = new mongoose.Schema({
     type: Date,
     required: [true, "Enter Date"],
   },
-  email: {
-    type: String,
-    lowercase: true,
-    required: [true, "Enter Email"],
-  },
+
   supplier: {
     type: String,
     required: [true, "Enter supplier"],

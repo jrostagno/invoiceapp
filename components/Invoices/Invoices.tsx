@@ -61,7 +61,6 @@ const Invoices = ({
           amount: form.amount,
           supplier: supplier.value,
           invoiceType: invoiceType.value,
-          email: session.user.email,
           name: session.user.name,
           userId: user._id,
         },
@@ -75,7 +74,6 @@ const Invoices = ({
         amount: form.amount,
         supplier: supplier.value,
         invoiceType: invoiceType.value,
-        email: session.user.email,
         name: session.user.name,
         userId: user._id,
       }).then((data) => {
@@ -148,11 +146,11 @@ const Invoices = ({
   };
 
   const handleDeleteInvoice = async () => {
+    setIsDelete(false);
     await invoiceDelete(invoiceId);
     getUserInvoices(user._id).then((res) => setInvoices(res.data));
     getCalculation(user._id).then((res) => setYearlyInvoiced(res.data));
     setIsOpen(false);
-    setIsDelete(false);
   };
   return (
     <>

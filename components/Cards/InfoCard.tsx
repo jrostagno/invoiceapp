@@ -7,6 +7,7 @@ import InfoLabels from "../Text/InfoLabels";
 import NumLabels from "../Text/NumLabels";
 
 const InfoCard = ({ invoiceLimit, currentMonth, lastMonth }) => {
+  console.log(moment().subtract(0, "month").format("MMM YYYY"));
   return (
     <div className="flex flex-col gap-2 p-3">
       <SubPanelInfo>
@@ -16,7 +17,7 @@ const InfoCard = ({ invoiceLimit, currentMonth, lastMonth }) => {
       <SubPanelInfo>
         <InfoLabels>
           {`  Current month invoicing
-          (${moment().subtract(1, "month").format("MMM YYYY")} ) `}
+          (${moment().subtract(0, "month").format("MMM YYYY")} ) `}
         </InfoLabels>
         <NumLabels>{currentMonth}</NumLabels>
       </SubPanelInfo>
@@ -24,7 +25,7 @@ const InfoCard = ({ invoiceLimit, currentMonth, lastMonth }) => {
         <InfoLabels>
           {" "}
           {`  Last month invoicing
-          (${moment().subtract(2, "month").format("MMM YYYY")} ) `}
+          (${moment().subtract(1, "month").format("MMM YYYY")} ) `}
         </InfoLabels>
         <NumLabels>{lastMonth}</NumLabels>
       </SubPanelInfo>

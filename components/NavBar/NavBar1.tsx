@@ -1,18 +1,51 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { signOut } from "next-auth/react";
-
+import { TbBrightnessUp } from "react-icons/tb";
+import { MdDarkMode } from "react-icons/md";
 import Link from "next/link";
+import { useTheme } from "next-themes";
 
 const NavBar1 = ({ session }) => {
   const [openMenu, setOpenMenu] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme, systemTheme } = useTheme();
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const renderThemeChanger = () => {
+    if (!mounted) return null;
+    const currentTheme = theme === "system" ? systemTheme : theme;
+    if (currentTheme === "light") {
+      return (
+        <div className="p-1 transition duration-300 ease-in-out delay-150 rounded-full hover:bg-gray-100 ">
+          <MdDarkMode
+            role="button"
+            onClick={() => setTheme("dark")}
+            style={{ fontSize: "1.5em" }}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div className="p-1 transition duration-300 ease-in-out delay-150 rounded-full hover:bg-gray-100 ">
+          <TbBrightnessUp
+            role="button"
+            onClick={() => setTheme("light")}
+            style={{ fontSize: "1.5em" }}
+          />
+        </div>
+      );
+    }
+  };
   const handleMenu = () => {
     setOpenMenu(!openMenu);
   };
   return (
-    <nav className="bg-gray-800">
+    <nav className="bg-white dark:bg-black">
       <div className="max-w-full px-2 mx-auto sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -47,16 +80,6 @@ const NavBar1 = ({ session }) => {
           </div>
           <div className="flex items-center justify-center flex-1 sm:items-stretch sm:justify-start">
             <div className="flex items-center flex-shrink-0">
-              {/* <img
-                className="block w-auto h-8 lg:hidden"
-                src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                alt="Workflow"
-              />
-              <img
-                className="hidden w-auto h-8 lg:block"
-                src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
-                alt="Workflow"
-              /> */}
               <Link href="/invoices">
                 <a>
                   <h1 className="text-3xl font-normal tracking-wide text-white">
@@ -81,8 +104,10 @@ const NavBar1 = ({ session }) => {
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <div className="relative ml-3">
               <div className="flex items-center gap-4">
+                {renderThemeChanger()}
+
                 {session && (
-                  <h1 className="hidden text-base font-medium tracking-wide text-white sm:block">{`Hi, ${session.user.name}!`}</h1>
+                  <h1 className="hidden text-base font-medium tracking-wide text-gray-900 dark:text-white sm:block">{`Hi, ${session.user.name}!`}</h1>
                 )}
                 <div>
                   <button
