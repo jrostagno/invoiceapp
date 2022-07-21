@@ -21,7 +21,14 @@ const ModalDelete = ({ setIsOpen, setIsDelete, handleDeleteInvoice }) => {
         >
           Cancel
         </ButtonDanger>
-        <ButtonPrimary onClick={handleDeleteInvoice}>Confirm</ButtonPrimary>
+        <ButtonPrimary
+          onClick={() => {
+            setIsOpen(false);
+            handleDeleteInvoice();
+          }}
+        >
+          Confirm
+        </ButtonPrimary>
       </div>
     </div>
   );

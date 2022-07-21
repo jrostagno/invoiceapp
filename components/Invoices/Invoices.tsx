@@ -118,6 +118,7 @@ const Invoices = ({
       icon: <FaPen />,
       onclick: (element) => {
         setIsOpen(true);
+        setIsDelete(false);
         setIsEdit(true);
         setInvoiceId(element._id);
         getInvoicesById(element._id).then((data) => {
@@ -130,14 +131,15 @@ const Invoices = ({
         });
       },
     },
-    {
-      name: "dowload",
-      icon: <FaDownload />,
-      onclick: (element) => console.log(element),
-    },
+    // {
+    //   name: "dowload",
+    //   icon: <FaDownload />,
+    //   onclick: (element) => console.log(element),
+    // },
   ];
 
   const handleAddInvoice = () => {
+    setIsDelete(false);
     setIsOpen(true);
     setForm({ date: "", amount: "" });
     setInvoiceType("");
@@ -145,11 +147,9 @@ const Invoices = ({
   };
 
   const handleDeleteInvoice = async () => {
-    setIsDelete(false);
     await invoiceDelete(invoiceId);
     getUserInvoices(user._id).then((res) => setInvoices(res.data));
     getCalculation(user._id).then((res) => setYearlyInvoiced(res.data));
-    setIsOpen(false);
   };
   return (
     <>

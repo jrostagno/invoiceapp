@@ -120,7 +120,7 @@ const Dashboard: NextPage = ({ session, user, currentSessionparse }) => {
             ></InfoCard>
           </PanelCard>
         </div>
-        <div className={!isDisabled ? "hidden w-full" : "w-full"}>
+        <div className={!isDisabled ? "hidden w-full" : "w-full  h-full"}>
           <PanelCard size="lg">
             <YearlyInvoice
               label="Yearly Invoice (last 12 months)"

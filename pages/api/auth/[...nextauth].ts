@@ -13,4 +13,7 @@ export default NextAuth({
     }),
     // ...add more providers here
   ],
+  pages: {
+    singIn: "/",
+  },
 });
