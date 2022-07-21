@@ -8,7 +8,7 @@ const ModalDelete = ({ setIsOpen, setIsDelete, handleDeleteInvoice }) => {
     <div>
       <Dialog.Title
         as="h3"
-        className="p-4 px-6 text-lg font-medium leading-6 text-center text-orange-700 border-b"
+        className="p-4 px-6 text-lg font-medium leading-6 text-center text-orange-700 border-b dark:opacity-90 dark:text-slate-200 dark:border-none"
       >
         Are you want to delete this ?
       </Dialog.Title>

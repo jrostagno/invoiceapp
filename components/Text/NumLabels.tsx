@@ -10,7 +10,7 @@ const NumLabels: React.FC<NumLabelsProps> = ({ children, className }) => {
   return (
     <label
       className={`${className || ""} text-xl  
-       "text-slate-600"
+       "text-slate-600 dark:text-slate-400 dark:opacity-60"
        `}
     >
       {children}

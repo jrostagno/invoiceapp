@@ -7,7 +7,7 @@ import { invoicesType, supplierOptions } from "../../lib/formConst";
 import ButtonDanger from "../Button/ButtonDanger";
 import ButtonPrimary from "../Button/ButtonPrimary";
 import { FaDownload } from "react-icons/fa";
-
+//dark:bg-[#1D2226]
 const ModalAddInvoice = ({
   setIsOpen,
   isEdit,
@@ -22,11 +22,11 @@ const ModalAddInvoice = ({
   return (
     <>
       <div
-        className={`w-full py-6 overflow-hidden inline-block text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl`}
+        className={`w-full py-6 overflow-hidden inline-block text-left align-middle transition-all transform bg-white dark:bg-slate-700 shadow-xl rounded-2xl`}
       >
         <Dialog.Title
           as="h3"
-          className="p-4 px-6 text-lg font-medium leading-6 text-orange-700 border-b"
+          className="p-4 px-6 text-lg font-medium leading-6 text-orange-700 border-b "
         >
           {!isEdit ? "Add Invoice" : "Edit Invoice"}
         </Dialog.Title>

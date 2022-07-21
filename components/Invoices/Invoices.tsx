@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ButtonPrimary from "../Button/ButtonPrimary";
 
 import Table from "../Table/Table";
 import DialogModal from "../Modal/Dialog";
 import ModalAddInvoice from "../Modal/ModalAddInvoice";
 import { FaRegTrashAlt, FaPen, FaDownload } from "react-icons/fa";
-import moment from "moment";
+
 import {
   editInvoice,
   getCalculation,
@@ -16,8 +16,7 @@ import {
 } from "../../services/invoices";
 import { dateFormater, formatNumber } from "../../services/formaters";
 import ModalDelete from "../Modal/ModalDelete";
-import { listeners } from "process";
-import Title from "../Text/Title";
+
 import InfoLabels from "../Text/InfoLabels";
 
 const Invoices = ({
@@ -170,7 +169,11 @@ const Invoices = ({
           (element) => (
             <div className="flex justify-evenly">
               {actions.map((invoice, index) => (
-                <button key={index} onClick={() => invoice.onclick(element)}>
+                <button
+                  className="duration-300 ease-in-out delay-150 hover:transition dark:hover:text-green-400"
+                  key={index}
+                  onClick={() => invoice.onclick(element)}
+                >
                   {invoice.icon}
                 </button>
               ))}

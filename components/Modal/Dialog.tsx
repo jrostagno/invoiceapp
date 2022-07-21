@@ -81,7 +81,7 @@ export default function DialogModal({
                   size
                 )}`}
               >
-                <div noValidate className="flex flex-col p-0">
+                <div noValidate className="flex flex-col p-0 dark:bg-slate-700">
                   {modal}
                 </div>
               </div>

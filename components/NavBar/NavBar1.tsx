@@ -45,7 +45,7 @@ const NavBar1 = ({ session }) => {
     setOpenMenu(!openMenu);
   };
   return (
-    <nav className="bg-white dark:bg-black">
+    <nav className="bg-white dark:bg-slate-900">
       <div className="max-w-full px-2 mx-auto sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -82,7 +82,7 @@ const NavBar1 = ({ session }) => {
             <div className="flex items-center flex-shrink-0">
               <Link href="/invoices">
                 <a>
-                  <h1 className="text-3xl font-normal tracking-wide text-white">
+                  <h1 className="text-3xl font-semibold tracking-wide text-slate-900 dark:text-white">
                     InvoiceApp
                   </h1>
                 </a>

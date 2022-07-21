@@ -11,6 +11,7 @@ export const customStyles = {
     borderRadius: "0.375rem",
     fontSize: "12px",
     fontWeight: "400",
+    color: "white",
   }),
 };
 
@@ -32,6 +33,7 @@ const Selector: React.FC<SelectorProps> = ({
   return (
     <Select
       id={id}
+      className="dark:text-slate-900"
       options={options}
       placeholder={placeholder}
       styles={customStyles}
@@ -41,7 +43,7 @@ const Selector: React.FC<SelectorProps> = ({
         ...theme,
         colors: {
           ...theme.colors,
-          neutral50: "#9CA3AF",
+          neutral50: "white",
         },
       })}
     />

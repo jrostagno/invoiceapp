@@ -38,7 +38,7 @@ export const PanelCard: FC<PanelCardsProps> = ({
     <div
       className={` ${className || ""} ${calcSize(
         size
-      )}  px-6 mx-auto my-8 py-6 mb-4 bg-white border rounded-md shadow-md`}
+      )}  px-6 mx-auto my-8 py-6 mb-4 bg-white border rounded-md shadow-md dark:bg-[#1e293b] dark:border-0`}
     >
       {children}
     </div>
@@ -50,7 +50,7 @@ export const PanelTable: FC<PanelTableProps> = ({ children, size }) => {
     <div
       className={`${calcSize(
         size
-      )}  py-6 mx-auto my-8 mb-4 bg-white border rounded-md shadow-md`}
+      )}  py-6 mx-auto my-8 mb-4 bg-white border dark:text-slate-40 rounded-md shadow-md dark:bg-[#1e293b] dark:border-0`}
     >
       {children}
     </div>

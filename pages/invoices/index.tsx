@@ -65,7 +65,9 @@ const Dashboard: NextPage = ({ session, user, currentSessionparse }) => {
         },
         userCategory?._id
       );
-      getUserCategory(user._id).then((res) => setUserCategory(res.data[0]));
+      getUserCategory(user._id)
+        .then((res) => setUserCategory(res.data[0]))
+        .then(() => setCategory(""));
     } else {
       await postCategoryAmount({
         amount: category,
@@ -92,6 +94,7 @@ const Dashboard: NextPage = ({ session, user, currentSessionparse }) => {
               handleChange={handleChange}
               handleSubmit={handleSubmit}
               isDisabled={isDisabled}
+              category={category}
             ></CategoryCard>
           </PanelCard>
 

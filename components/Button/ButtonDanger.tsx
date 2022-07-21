@@ -20,7 +20,7 @@ const ButtonDanger: FC<ButtonDangerProps> = ({
     <button
       className={`${className || ""} ${
         disabled ? "opacity-25 cursor-not-allowed" : ""
-      } bg-white text-red-400  ${btnStyles}`}
+      } bg-white text-red-400 dark:bg-red-400 dark:opacity-60 dark:text-slate-900 dark:hover:text-slate-200 dark:hover:bg-[#1e293b]  ${btnStyles}`}
       {...props}
     >
       {children}
