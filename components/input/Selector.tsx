@@ -33,7 +33,7 @@ const Selector: React.FC<SelectorProps> = ({
   return (
     <Select
       id={id}
-      className="dark:text-slate-900"
+      className="text-slate-900"
       options={options}
       placeholder={placeholder}
       styles={customStyles}

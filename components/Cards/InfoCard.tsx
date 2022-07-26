@@ -7,7 +7,6 @@ import InfoLabels from "../Text/InfoLabels";
 import NumLabels from "../Text/NumLabels";
 
 const InfoCard = ({ invoiceLimit, currentMonth, lastMonth }) => {
-  console.log(moment().subtract(0, "month").format("MMM YYYY"));
   return (
     <div className="flex flex-col gap-2 p-3">
       <SubPanelInfo>

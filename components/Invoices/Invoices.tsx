@@ -8,7 +8,6 @@ import { FaRegTrashAlt, FaPen, FaDownload } from "react-icons/fa";
 
 import {
   editInvoice,
-  getCalculation,
   getInvoicesById,
   getUserInvoices,
   invoiceDelete,
@@ -18,14 +17,9 @@ import { dateFormater, formatNumber } from "../../services/formaters";
 import ModalDelete from "../Modal/ModalDelete";
 
 import InfoLabels from "../Text/InfoLabels";
+import { getCalculation } from "../../services/calculations";
 
-const Invoices = ({
-  session,
-  user,
-  setYearlyInvoiced,
-  invoices,
-  setInvoices,
-}) => {
+const Invoices = ({ session, setYearlyInvoiced, invoices, setInvoices }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const [isEdit, setIsEdit] = useState(false);
@@ -54,27 +48,29 @@ const Invoices = ({
     e.preventDefault();
 
     if (isEdit) {
-      editInvoice(
+      await editInvoice(
         {
           date: form.date,
           amount: form.amount,
           supplier: supplier.value,
           invoiceType: invoiceType.value,
           name: session.user.name,
-          userId: user._id,
+          userId: session.user.id,
         },
         invoiceId
       );
-      getUserInvoices(user._id).then((res) => setInvoices(res.data));
-      getCalculation(user._id).then((res) => setYearlyInvoiced(res.data));
+      getUserInvoices(session.user.id).then((res) => setInvoices(res.data));
+      getCalculation(session.user.id).then((res) =>
+        setYearlyInvoiced(res.data)
+      );
     } else {
-      postInvoice({
+      await postInvoice({
         date: form.date,
         amount: form.amount,
         supplier: supplier.value,
         invoiceType: invoiceType.value,
         name: session.user.name,
-        userId: user._id,
+        userId: session.user.id,
       }).then((data) => {
         if (!data.success) {
           for (const key in data.error.errors) {
@@ -86,10 +82,11 @@ const Invoices = ({
             ]);
           }
         }
-        setIsOpen(false);
       });
-      getUserInvoices(user._id).then((res) => setInvoices(res.data));
-      getCalculation(user._id).then((res) => setYearlyInvoiced(res.data));
+      getUserInvoices(session.user.id).then((res) => setInvoices(res.data));
+      getCalculation(session.user.id).then((res) =>
+        setYearlyInvoiced(res.data)
+      );
     }
     setIsEdit(false);
     setIsOpen(false);
@@ -148,8 +145,8 @@ const Invoices = ({
 
   const handleDeleteInvoice = async () => {
     await invoiceDelete(invoiceId);
-    getUserInvoices(user._id).then((res) => setInvoices(res.data));
-    getCalculation(user._id).then((res) => setYearlyInvoiced(res.data));
+    getUserInvoices(session.user.id).then((res) => setInvoices(res.data));
+    getCalculation(session.user.id).then((res) => setYearlyInvoiced(res.data));
   };
   return (
     <>
@@ -191,6 +188,7 @@ const Invoices = ({
           Add invoice
         </ButtonPrimary>
       </div>
+
       {isDelete ? (
         <DialogModal
           size="xs"

@@ -26,7 +26,7 @@ const ModalAddInvoice = ({
       >
         <Dialog.Title
           as="h3"
-          className="p-4 px-6 text-lg font-medium leading-6 text-orange-700 border-b "
+          className="p-4 px-6 ml-4 text-lg font-medium leading-6 text-orange-700 border-b dark:text-slate-200 dark:opacity-60 dark:border-none "
         >
           {!isEdit ? "Add Invoice" : "Edit Invoice"}
         </Dialog.Title>

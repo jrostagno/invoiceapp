@@ -16,4 +16,13 @@ export default NextAuth({
   pages: {
     singIn: "/",
   },
+
+  callbacks: {
+    session: async ({ session, user }) => {
+      return {
+        ...session,
+        user: user,
+      };
+    },
+  },
 });

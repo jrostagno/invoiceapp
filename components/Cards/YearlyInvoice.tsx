@@ -10,7 +10,7 @@ const YearlyInvoice = ({ amount, label }) => {
       </label>
       <NumLabels
         className={`${parseFloat(amount) < 0 ? "text-red-500" : ""}`}
-      >{`$ ${amount} `}</NumLabels>
+      >{`${amount} `}</NumLabels>
     </div>
   );
 };

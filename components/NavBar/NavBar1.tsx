@@ -7,8 +7,11 @@ import { MdDarkMode } from "react-icons/md";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import ButtonPrimary from "../Button/ButtonPrimary";
+import { Router, useRouter } from "next/router";
 
 const NavBar1 = ({ session }) => {
+  const router = useRouter();
+
   const [openMenu, setOpenMenu] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [openMenueMobile, setOpenMenueMobile] = useState(false);
@@ -33,8 +36,9 @@ const NavBar1 = ({ session }) => {
       );
     } else {
       return (
-        <div className="p-1 transition duration-300 ease-in-out delay-150 rounded-full hover:bg-gray-100 ">
+        <div className="p-1 transition duration-300 ease-in-out delay-150 rounded-full">
           <TbBrightnessUp
+            className="dark:hover:text-green-400"
             role="button"
             onClick={() => setTheme("light")}
             style={{ fontSize: "1.5em" }}
@@ -47,7 +51,7 @@ const NavBar1 = ({ session }) => {
     setOpenMenu(!openMenu);
   };
   return (
-    <nav className="fixed w-full bg-white dark:bg-slate-900">
+    <nav className="fixed z-30 w-full bg-white dark:bg-slate-900">
       <div className="max-w-full px-2 mx-auto sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -85,7 +89,11 @@ const NavBar1 = ({ session }) => {
             <div className="flex items-center flex-shrink-0">
               <Link href="/invoices">
                 <a>
-                  <h1 className="text-3xl font-semibold  font-['Open_Sans'] tracking-wide text-slate-800 dark:text-white">
+                  <h1
+                    className={`text-3xl font-semibold ${
+                      session ? "visible" : "invisible"
+                    }  font-['Open_Sans'] tracking-wide dark:text-slate-200`}
+                  >
                     InvoiceApp
                   </h1>
                 </a>
@@ -94,7 +102,12 @@ const NavBar1 = ({ session }) => {
             <div className="hidden sm:block sm:ml-6">
               <div className="flex space-x-4">
                 {session && (
-                  <ButtonPrimary aria-current="page">Dashboard</ButtonPrimary>
+                  <ButtonPrimary
+                    onClick={() => router.push("/graphics")}
+                    aria-current="page"
+                  >
+                    Graphics
+                  </ButtonPrimary>
                 )}
               </div>
             </div>
@@ -175,8 +188,9 @@ const NavBar1 = ({ session }) => {
               <ButtonPrimary
                 className="block px-3 py-2 ml-6"
                 aria-current="page"
+                onClick={() => router.push("/graphics")}
               >
-                Dashboard
+                Graphics
               </ButtonPrimary>
             )}
           </div>

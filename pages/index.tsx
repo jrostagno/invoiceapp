@@ -1,19 +1,14 @@
-import react from "react";
-import { useSession, signIn, getProviders, getSession } from "next-auth/react";
-
 import React from "react";
+import { useSession, signIn, getProviders, getSession } from "next-auth/react";
 import AppLayout from "../components/Layout/AppLayout";
 import Head from "next/head";
 import { PanelCard } from "../components/Panel/PanelCard";
 import { useRouter } from "next/router";
-
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-
 import InfoLabels from "../components/Text/InfoLabels";
 
 const SignIn = ({ providers }) => {
-  console.log(providers);
   const router = useRouter();
   const { data: session, status } = useSession();
 
