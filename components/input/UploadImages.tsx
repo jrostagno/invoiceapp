@@ -19,7 +19,11 @@ const UploadImages: FC<UploadImagesProps> = ({ className, avatar }) => {
         }  border-gray-400 rounded-full cursor-pointer`}
       >
         {avatar ? (
-          <img className="object-cover w-full h-full" alt="" src={avatar} />
+          <img
+            className="object-cover w-full h-full cursor-not-allowed"
+            alt=""
+            src={avatar}
+          />
         ) : (
           <FaCameraRetro
             style={{ fontSize: "45px", color: "gray" }}

@@ -29,7 +29,7 @@ const Register: React.FC<RegisterProps> = ({ session }) => {
           <form>
             <UploadImages
               avatar={session.user.image}
-              className="flex justify-center mt-4"
+              className="flex justify-center mt-4 cursor-not-allowed"
             ></UploadImages>
             <div className="flex flex-col justify-between w-full p-4">
               <LabelForm>Name</LabelForm>

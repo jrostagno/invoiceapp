@@ -20,6 +20,7 @@ import InfoLabels from "../Text/InfoLabels";
 import { getCalculation } from "../../services/calculations";
 import { Invoices, Session, InvoiceProps, InvoiceElement } from "../../types";
 import { YearlyInvoiceProps } from "../../pages/invoices";
+import Pagination from "../Pagination/Pagination";
 
 interface InvoicesProps {
   session: Session;
@@ -51,6 +52,28 @@ const Invoices: FC<InvoicesProps> = ({
     supplier: "",
     invoiceType: "",
   });
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const listPerPage = 5;
+  const indexOfLastList = currentPage * listPerPage;
+  const indexOfFirstList = indexOfLastList - listPerPage;
+  const currentList = invoices.slice(indexOfFirstList, indexOfLastList);
+
+  const pageNumbers = Math.ceil(invoices.length / listPerPage);
+
+  const nextPage = () => {
+    if (currentPage < pageNumbers) {
+      let nextPage = currentPage + 1;
+      setCurrentPage(nextPage);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      let prevPage = currentPage - 1;
+      setCurrentPage(prevPage);
+    }
+  };
 
   const handleOnChange = (
     event:
@@ -160,7 +183,7 @@ const Invoices: FC<InvoicesProps> = ({
     <>
       <Table
         columns={columns}
-        list={invoices}
+        list={currentList}
         cells={[
           (element: InvoiceProps) => (
             <h1 className="text-center">{dateFormater(element.date)}</h1>
@@ -196,10 +219,16 @@ const Invoices: FC<InvoicesProps> = ({
         </div>
       )}
       <div className="flex justify-end">
-        <ButtonPrimary onClick={() => handleAddInvoice()} className="mx-6 mt-6">
+        <ButtonPrimary onClick={() => handleAddInvoice()} className="mx-6 mt-3">
           Add invoice
         </ButtonPrimary>
       </div>
+      <Pagination
+        nextPage={nextPage}
+        prevPage={prevPage}
+        pageNumbers={pageNumbers}
+        currentPage={currentPage}
+      ></Pagination>
 
       {isDelete ? (
         <DialogModal

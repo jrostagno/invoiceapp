@@ -21,7 +21,7 @@ const Graphics: FC<GraphicsProps> = ({ session }) => {
 
   useEffect(() => {
     getUserInvoices(session.user.id).then((res) => setAllInvoices(res.data));
-  }, []);
+  }, [session.user.id]);
 
   const labels = parseLabels();
 

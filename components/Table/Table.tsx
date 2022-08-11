@@ -9,7 +9,7 @@ interface InvoiceTableProps {
 
 const InvoiceTable: FC<InvoiceTableProps> = ({ list, cells, columns }) => {
   return (
-    <div className="w-full overflow-auto max-h-[27.3rem]">
+    <div className="w-full  max-h-[27.3rem]">
       <table className="w-full border-b table-fixed dark:border-none">
         <thead className="z-10 font-thin bg-gray-200 text-slate-800 dark:text-white dark:bg-slate-900 dark:border-b dark:border-green-600">
           <tr>

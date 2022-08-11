@@ -3,14 +3,14 @@ export interface ButtonDangerProps {
   className?: string;
   children: React.ReactNode;
   disabled?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export interface ButtonsPrimaryProps {
   className?: string;
   disabled?: boolean;
   children: React.ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 // TEXT
@@ -174,4 +174,13 @@ export interface CalculationsProps {
   invoiceLimit: number;
   currentMonth: number;
   lastMonth: number;
+}
+
+// PAGINATION
+
+export interface PaginationProps {
+  pageNumbers: number;
+  nextPage: () => void;
+  prevPage: () => void;
+  currentPage: number;
 }

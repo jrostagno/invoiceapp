@@ -6,7 +6,7 @@ import Subtitle from "../Text/Subtitle";
 
 const AddCategoryLimit = () => {
   return (
-    <div className="flex items-center justify-center gap-4">
+    <div className="flex items-center justify-center gap-4 mt-20">
       <div>
         <Title>First Add your invoice Category Limits</Title>
         <Subtitle>

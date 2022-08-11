@@ -24,6 +24,3 @@ const ButtonPrimary: FC<ButtonsPrimaryProps> = ({
 };
 
 export default ButtonPrimary;
-
-//dark:bg-gradient-to-b from-green-400 to-green-900
-//hover:bg-[#1e293b]

@@ -101,7 +101,11 @@ const ModalAddInvoice: FC<ModalAddInvoiceProps> = ({
             >
               Cancel
             </ButtonDanger>
-            <ButtonPrimary type="submit">
+            <ButtonPrimary
+              onClick={() => {
+                handleSubmit;
+              }}
+            >
               {isEdit ? "Edit" : "Save"}
             </ButtonPrimary>
           </div>

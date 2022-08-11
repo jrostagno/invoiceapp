@@ -63,7 +63,7 @@ const Dashboard: React.FC<DashboardProps> = ({ session }) => {
         setIsDisabled(true);
       }
     });
-  }, []);
+  }, [session.user.id]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCategory(Number(event.target.value));
