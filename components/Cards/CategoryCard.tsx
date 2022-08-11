@@ -35,7 +35,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
       ></input>
 
       <div className="flex justify-end">
-        <ButtonPrimary type="submit">
+        <ButtonPrimary onClick={() => handleSubmit}>
           {isDisabled ? "Edit" : "Save"}
         </ButtonPrimary>
       </div>

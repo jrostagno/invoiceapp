@@ -137,7 +137,7 @@ const Invoices: FC<InvoicesProps> = ({
     {
       name: "delete",
       icon: <FaRegTrashAlt />,
-      onclick: (element: InvoiceElement) => {
+      onclick: (element: any) => {
         setIsOpen(true);
         setIsDelete(true);
         setInvoiceId(element._id);
@@ -146,7 +146,7 @@ const Invoices: FC<InvoicesProps> = ({
     {
       name: "edit",
       icon: <FaPen />,
-      onclick: (element: InvoiceElement) => {
+      onclick: (element: any) => {
         setIsOpen(true);
         setIsDelete(false);
         setIsEdit(true);
@@ -185,20 +185,16 @@ const Invoices: FC<InvoicesProps> = ({
         columns={columns}
         list={currentList}
         cells={[
-          (element: InvoiceProps) => (
+          (element) => (
             <h1 className="text-center">{dateFormater(element.date)}</h1>
           ),
-          (element: InvoiceProps) => (
-            <h1 className="text-center">{element.supplier}</h1>
-          ),
-          (element: InvoiceProps) => (
-            <h1 className="text-center">{element.invoiceType}</h1>
-          ),
-          (element: InvoiceProps) => (
+          (element) => <h1 className="text-center">{element.supplier}</h1>,
+          (element) => <h1 className="text-center">{element.invoiceType}</h1>,
+          (element) => (
             <h1 className="text-center">{formatNumber(element.amount)}</h1>
           ),
 
-          (element: InvoiceProps) => (
+          (element) => (
             <div className="flex justify-evenly">
               {actions.map((invoice, index) => (
                 <button
