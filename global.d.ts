@@ -4,6 +4,7 @@ declare global {
       NODE_ENV: "development" | "production";
     }
   }
+  var mongoose: any;
 }
 
 export {};
