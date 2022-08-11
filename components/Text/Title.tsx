@@ -1,9 +1,5 @@
 import React from "react";
-
-interface Title {
-  className?: string;
-  children: React.ReactNode;
-}
+import { Title } from "../../types";
 
 const Title: React.FC<Title> = ({ className, children }) => {
   return (

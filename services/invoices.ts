@@ -1,5 +1,7 @@
+import { InvoiceProps, Invoices } from "../types";
+
 //GET INVOICES
-export const getUserInvoices = (userId) => {
+export const getUserInvoices = (userId: string) => {
   try {
     const data = fetch(`/api/userinvoices/${userId}`, { method: "GET" }).then(
       (res) => res.json()
@@ -11,7 +13,7 @@ export const getUserInvoices = (userId) => {
 };
 
 // GET INVOICE
-export const getInvoicesById = async (id) => {
+export const getInvoicesById = async (id: string) => {
   try {
     const data = await fetch(`/api/${id}`, { method: "GET" }).then((res) =>
       res.json()
@@ -23,7 +25,7 @@ export const getInvoicesById = async (id) => {
 };
 
 //POST INVOICE
-export const postInvoice = async (invoice) => {
+export const postInvoice = async (invoice: InvoiceProps) => {
   try {
     const data = await fetch("/api/invoice", {
       method: "POST",
@@ -38,7 +40,8 @@ export const postInvoice = async (invoice) => {
 };
 
 //EDIT INVOICE
-export const editInvoice = async (invoice, id) => {
+
+export const editInvoice = async (invoice: InvoiceProps, id: string) => {
   try {
     const res = await fetch(`/api/${id}`, {
       method: "PUT",
@@ -51,7 +54,7 @@ export const editInvoice = async (invoice, id) => {
 };
 
 //DELETE INVOICE
-export const invoiceDelete = async (id) => {
+export const invoiceDelete = async (id: string) => {
   try {
     await fetch(`/api/${id}`, { method: "DELETE" });
   } catch (error) {

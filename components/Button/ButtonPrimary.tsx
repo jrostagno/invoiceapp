@@ -1,11 +1,5 @@
 import React, { FC } from "react";
-
-interface ButtonsPrimaryProps {
-  className?: string;
-  disabled?: boolean;
-  children: React.ReactNode;
-  onClick: () => void;
-}
+import { ButtonsPrimaryProps } from "../../types";
 
 const btnStyles: string =
   "px-3 py-1 mt-2 text-sm border border-transparent  rounded-md tracking-widest focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150";

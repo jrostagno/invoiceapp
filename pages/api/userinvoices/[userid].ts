@@ -2,9 +2,14 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import Invoice from "../../../models/Invoice";
 import conectarDB from "../../../lib/dbConnect";
+import { InvoiceProps, Invoices } from "../../../types";
 
 type Data = {
-  name: string;
+  name?: string;
+  success: boolean;
+  invoice?: InvoiceProps;
+  error?: any;
+  data?: Invoices;
 };
 
 export default async function handler(

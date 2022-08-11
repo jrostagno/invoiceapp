@@ -1,10 +1,5 @@
 import React from "react";
-
-interface NumLabelsProps {
-  children: React.ReactNode;
-  className?: string;
-  warningLimit?: boolean;
-}
+import { NumLabelsProps } from "../../types";
 
 const NumLabels: React.FC<NumLabelsProps> = ({ children, className }) => {
   return (

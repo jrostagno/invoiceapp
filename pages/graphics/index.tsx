@@ -1,6 +1,6 @@
 import { getSession } from "next-auth/react";
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import {
   parseLabels,
   getMontshAmount,
@@ -10,8 +10,13 @@ import AppLayout from "../../components/Layout/AppLayout";
 import { PanelCard } from "../../components/Panel/PanelCard";
 import Title from "../../components/Text/Title";
 import { getUserInvoices } from "../../services/invoices";
+import { Session } from "../../types";
 
-const Graphics = ({ session }) => {
+interface GraphicsProps {
+  session: Session;
+}
+
+const Graphics: FC<GraphicsProps> = ({ session }) => {
   const [allInvoices, setAllInvoices] = useState([]);
 
   useEffect(() => {
@@ -19,7 +24,9 @@ const Graphics = ({ session }) => {
   }, []);
 
   const labels = parseLabels();
+
   const invoices = getMontshAmount(allInvoices);
+
   return (
     <AppLayout session={session}>
       <Head>
@@ -27,7 +34,7 @@ const Graphics = ({ session }) => {
       </Head>
 
       <div className="w-full ">
-        <PanelCard size="med">
+        <PanelCard size="md">
           <Title className="p-4">Yearly invoiced</Title>
           <InvoiceGraphics
             labels={labels}
@@ -41,7 +48,7 @@ const Graphics = ({ session }) => {
 
 export default Graphics;
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps = async (context: any) => {
   const session = await getSession(context);
 
   if (!session)

@@ -1,11 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import Image from "next/image";
 import React, { FC } from "react";
 import { FaCameraRetro } from "react-icons/fa";
+import { UploadImagesProps } from "../../types";
 
-interface UploadImagesProps {
-  className: string;
-}
 const UploadImages: FC<UploadImagesProps> = ({ className, avatar }) => {
   return (
     <label className={className} htmlFor="dataimg">

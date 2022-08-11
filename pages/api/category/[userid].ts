@@ -1,3 +1,4 @@
+import { CategoyAmount } from "./../../../types/index";
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 
@@ -5,7 +6,11 @@ import conectarDB from "../../../lib/dbConnect";
 import Category from "../../../models/Category";
 
 type Data = {
-  name: string;
+  name?: string;
+  success: boolean;
+  error?: any;
+  data?: CategoyAmount[];
+  data1?: string;
 };
 
 export default async function handler(
@@ -27,7 +32,7 @@ export default async function handler(
         if (category.length === 0) {
           return res
             .status(200)
-            .json({ success: false, data: "No category load.." });
+            .json({ success: false, data1: "No category load.." });
         }
         return res.status(200).json({ success: true, data: category });
       } catch (error) {

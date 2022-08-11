@@ -4,12 +4,17 @@ import Invoice from "../../../models/Invoice";
 import conectarDB from "../../../lib/dbConnect";
 import {
   currentMonthAmount,
-  currentYearlyAmount,
+  currentYearAmount,
   lastMonthAmount,
 } from "../../../controllers/invoicesCalculations";
+import { CalculationsProps } from "../../../types";
 
 type Data = {
-  name: string;
+  name?: string;
+  success?: boolean;
+  error?: any;
+  data1?: string;
+  data?: CalculationsProps;
 };
 
 export default async function handler(
@@ -29,7 +34,7 @@ export default async function handler(
         const invoices = await Invoice.find({ userId: userid });
 
         const calculations = {
-          yearly: currentYearlyAmount(invoices),
+          yearly: currentYearAmount(invoices),
           currentMonth: currentMonthAmount(invoices),
           lastMonthAmount: lastMonthAmount(invoices),
         };
@@ -37,7 +42,7 @@ export default async function handler(
         if (!invoices) {
           return res
             .status(200)
-            .json({ success: false, data: "load invoices first" });
+            .json({ success: false, data1: "load invoices first" });
         }
         return res.status(200).json({ success: true, data: calculations });
       } catch (error) {

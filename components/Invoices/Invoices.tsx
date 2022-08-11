@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { FC, FormEvent, useState } from "react";
 import ButtonPrimary from "../Button/ButtonPrimary";
 
 import Table from "../Table/Table";
-import DialogModal from "../Modal/Dialog";
+import { DialogModal } from "../Modal/Dialog";
 import ModalAddInvoice from "../Modal/ModalAddInvoice";
-import { FaRegTrashAlt, FaPen, FaDownload } from "react-icons/fa";
+import { FaRegTrashAlt, FaPen } from "react-icons/fa";
 
 import {
   editInvoice,
@@ -18,25 +18,46 @@ import ModalDelete from "../Modal/ModalDelete";
 
 import InfoLabels from "../Text/InfoLabels";
 import { getCalculation } from "../../services/calculations";
+import { Invoices, Session, InvoiceProps, InvoiceElement } from "../../types";
+import { YearlyInvoiceProps } from "../../pages/invoices";
 
-const Invoices = ({ session, setYearlyInvoiced, invoices, setInvoices }) => {
+interface InvoicesProps {
+  session: Session;
+  setYearlyInvoiced: (yearlyInvoiced: YearlyInvoiceProps) => void;
+  invoices: Invoices;
+  setInvoices: (invoice: Invoices) => void;
+}
+interface SetFormProps {
+  supplier: string;
+  invoiceType: string;
+  date: string;
+  amount: number;
+}
+
+const Invoices: FC<InvoicesProps> = ({
+  session,
+  setYearlyInvoiced,
+  invoices,
+  setInvoices,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
-
   const [isEdit, setIsEdit] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [invoiceId, setInvoiceId] = useState("");
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<SetFormProps>({
     date: "",
-    amount: "",
+    amount: 0,
+    supplier: "",
+    invoiceType: "",
   });
 
-  const [invoiceType, setInvoiceType] = useState("");
-  const [supplier, setSupplier] = useState("");
-  const [errorMessage, setErrorMessage] = useState([]);
-
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
+  const handleOnChange = (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const { name, value } = event.target;
 
     setForm({
       ...form,
@@ -44,16 +65,16 @@ const Invoices = ({ session, setYearlyInvoiced, invoices, setInvoices }) => {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
     if (isEdit) {
       await editInvoice(
         {
           date: form.date,
           amount: form.amount,
-          supplier: supplier.value,
-          invoiceType: invoiceType.value,
+          supplier: form.supplier,
+          invoiceType: form.invoiceType,
           name: session.user.name,
           userId: session.user.id,
         },
@@ -67,21 +88,10 @@ const Invoices = ({ session, setYearlyInvoiced, invoices, setInvoices }) => {
       await postInvoice({
         date: form.date,
         amount: form.amount,
-        supplier: supplier.value,
-        invoiceType: invoiceType.value,
+        supplier: form.supplier,
+        invoiceType: form.invoiceType,
         name: session.user.name,
         userId: session.user.id,
-      }).then((data) => {
-        if (!data.success) {
-          for (const key in data.error.errors) {
-            let error = data.error.errors[key];
-
-            setErrorMessage((oldMessage) => [
-              ...oldMessage,
-              { message: error.message },
-            ]);
-          }
-        }
       });
       getUserInvoices(session.user.id).then((res) => setInvoices(res.data));
       getCalculation(session.user.id).then((res) =>
@@ -104,7 +114,7 @@ const Invoices = ({ session, setYearlyInvoiced, invoices, setInvoices }) => {
     {
       name: "delete",
       icon: <FaRegTrashAlt />,
-      onclick: (element) => {
+      onclick: (element: InvoiceElement) => {
         setIsOpen(true);
         setIsDelete(true);
         setInvoiceId(element._id);
@@ -113,18 +123,18 @@ const Invoices = ({ session, setYearlyInvoiced, invoices, setInvoices }) => {
     {
       name: "edit",
       icon: <FaPen />,
-      onclick: (element) => {
+      onclick: (element: InvoiceElement) => {
         setIsOpen(true);
         setIsDelete(false);
         setIsEdit(true);
         setInvoiceId(element._id);
         getInvoicesById(element._id).then((data) => {
-          setForm({ date: data.data.date, amount: data.data.amount });
-          setInvoiceType({
-            label: data.data.invoiceType,
-            value: data.data.invoiceType,
+          setForm({
+            date: data.data.date,
+            amount: data.data.amount,
+            invoiceType: data.data.invoiceType,
+            supplier: data.data.supplier,
           });
-          setSupplier({ label: data.data.supplier, value: data.data.supplier });
         });
       },
     },
@@ -138,9 +148,7 @@ const Invoices = ({ session, setYearlyInvoiced, invoices, setInvoices }) => {
   const handleAddInvoice = () => {
     setIsDelete(false);
     setIsOpen(true);
-    setForm({ date: "", amount: "" });
-    setInvoiceType("");
-    setSupplier("");
+    setForm({ date: "", amount: 0, invoiceType: "", supplier: "" });
   };
 
   const handleDeleteInvoice = async () => {
@@ -154,16 +162,20 @@ const Invoices = ({ session, setYearlyInvoiced, invoices, setInvoices }) => {
         columns={columns}
         list={invoices}
         cells={[
-          (element) => (
+          (element: InvoiceProps) => (
             <h1 className="text-center">{dateFormater(element.date)}</h1>
           ),
-          (element) => <h1 className="text-center">{element.supplier}</h1>,
-          (element) => <h1 className="text-center">{element.invoiceType}</h1>,
-          (element) => (
+          (element: InvoiceProps) => (
+            <h1 className="text-center">{element.supplier}</h1>
+          ),
+          (element: InvoiceProps) => (
+            <h1 className="text-center">{element.invoiceType}</h1>
+          ),
+          (element: InvoiceProps) => (
             <h1 className="text-center">{formatNumber(element.amount)}</h1>
           ),
 
-          (element) => (
+          (element: InvoiceProps) => (
             <div className="flex justify-evenly">
               {actions.map((invoice, index) => (
                 <button
@@ -210,16 +222,8 @@ const Invoices = ({ session, setYearlyInvoiced, invoices, setInvoices }) => {
               handleSubmit={handleSubmit}
               handleOnChange={handleOnChange}
               form={form}
-              setForm={setForm}
-              supplier={supplier}
-              setSupplier={setSupplier}
-              invoiceType={invoiceType}
-              setInvoiceType={setInvoiceType}
-              errorMessage={errorMessage}
-              setErrorMessage={setErrorMessage}
               isEdit={isEdit}
               setIsOpen={setIsOpen}
-              setIsEdit={setIsEdit}
             ></ModalAddInvoice>
           }
           setIsOpen={setIsOpen}

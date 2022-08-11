@@ -1,8 +1,14 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
+import { CategoryCardProps } from "../../types";
 import ButtonPrimary from "../Button/ButtonPrimary";
 
-const CategoryCard = ({ handleChange, handleSubmit, isDisabled, category }) => {
+const CategoryCard: React.FC<CategoryCardProps> = ({
+  handleChange,
+  handleSubmit,
+  isDisabled,
+  category,
+}) => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="flex justify-between">

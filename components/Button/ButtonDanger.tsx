@@ -1,11 +1,5 @@
 import React, { FC } from "react";
-
-interface ButtonDangerProps {
-  className?: string;
-  children: React.ReactNode;
-  disabled?: boolean;
-  onClick: () => void;
-}
+import { ButtonDangerProps } from "../../types";
 
 const ButtonDanger: FC<ButtonDangerProps> = ({
   className,

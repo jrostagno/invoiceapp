@@ -1,15 +1,20 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { signOut } from "next-auth/react";
 import { TbBrightnessUp } from "react-icons/tb";
 import { MdDarkMode } from "react-icons/md";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import ButtonPrimary from "../Button/ButtonPrimary";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
+import { Session } from "../../types";
 
-const NavBar1 = ({ session }) => {
+interface NavBar1Props {
+  session?: Session;
+}
+
+const NavBar1: FC<NavBar1Props> = ({ session }) => {
   const router = useRouter();
 
   const [openMenu, setOpenMenu] = useState(false);
@@ -51,7 +56,7 @@ const NavBar1 = ({ session }) => {
     setOpenMenu(!openMenu);
   };
   return (
-    <nav className="fixed z-30 w-full bg-white dark:bg-slate-900">
+    <nav className="fixed z-30 w-full bg-gray-100 dark:bg-slate-900">
       <div className="max-w-full px-2 mx-auto sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -142,7 +147,6 @@ const NavBar1 = ({ session }) => {
               </div>
               {openMenu && (
                 <button
-                  tabindex="-1"
                   onClick={() => handleMenu()}
                   className="fixed top-0 left-0 right-0 w-full h-full bg-black cursor-default opacity-20 button-o"
                 ></button>

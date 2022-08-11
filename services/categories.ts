@@ -1,5 +1,7 @@
+import { CategoryProps, PostcategoryProps } from "../types";
+
 //GET USER CATEGORY
-export const getUserCategory = (userId) => {
+export const getUserCategory = (userId: string) => {
   try {
     const data = fetch(`/api/category/${userId}`, { method: "GET" }).then(
       (res) => res.json()
@@ -12,7 +14,11 @@ export const getUserCategory = (userId) => {
 };
 
 //EDIT USER CATEGORY
-export const editCategoryAmount = async (newAmount, userId) => {
+
+export const editCategoryAmount = async (
+  newAmount: CategoryProps,
+  userId: string
+) => {
   try {
     const res = await fetch(`/api/category-amount/${userId}`, {
       method: "PUT",
@@ -25,7 +31,8 @@ export const editCategoryAmount = async (newAmount, userId) => {
 };
 
 //POST USER CATEGORY
-export const postCategoryAmount = async (amount) => {
+
+export const postCategoryAmount = async (amount: PostcategoryProps) => {
   try {
     const data = await fetch("/api/category-amount", {
       method: "POST",

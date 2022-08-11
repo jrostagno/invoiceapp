@@ -1,9 +1,6 @@
 import React from "react";
+import { InfoLabels } from "../../types";
 
-interface InfoLabels {
-  children: React.ReactNode;
-  className?: string;
-}
 const InfoLabels: React.FC<InfoLabels> = ({ children, className }) => {
   return (
     <label

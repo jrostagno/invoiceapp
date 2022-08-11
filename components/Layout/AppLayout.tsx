@@ -1,9 +1,11 @@
 import React, { FC } from "react";
 import NavBar1 from "../../components/NavBar/NavBar1";
+import { Session } from "../../types";
 import Footer from "../Footer/Footer";
 
 interface AppLayoutProps {
   children: React.ReactNode;
+  session?: Session;
 }
 
 const AppLayout: FC<AppLayoutProps> = ({ children, session }) => {

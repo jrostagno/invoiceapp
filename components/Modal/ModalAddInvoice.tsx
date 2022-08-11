@@ -1,21 +1,29 @@
-import React from "react";
+import React, { FC, FormEvent } from "react";
 import { Dialog } from "@headlessui/react";
 import LabelForm from "../Text/LabelForm";
 import InputForm from "../input/InputForm";
-import Selector from "../input/Selector";
 import { invoicesType, supplierOptions } from "../../lib/formConst";
 import ButtonDanger from "../Button/ButtonDanger";
 import ButtonPrimary from "../Button/ButtonPrimary";
 import { FaDownload } from "react-icons/fa";
-//dark:bg-[#1D2226]
-const ModalAddInvoice = ({
+import Select from "../input/Select";
+
+interface ModalAddInvoiceProps {
+  isEdit: boolean;
+  form: { date: string; amount: number };
+  handleOnChange: (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => void;
+  handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  setIsOpen: (isOpen: boolean) => void;
+}
+
+const ModalAddInvoice: FC<ModalAddInvoiceProps> = ({
   setIsOpen,
   isEdit,
   form,
-  supplier,
-  setSupplier,
-  invoiceType,
-  setInvoiceType,
   handleSubmit,
   handleOnChange,
 }) => {
@@ -26,7 +34,7 @@ const ModalAddInvoice = ({
       >
         <Dialog.Title
           as="h3"
-          className="p-4 px-6 ml-4 text-lg font-medium leading-6 text-orange-700 border-b dark:text-slate-200 dark:opacity-60 dark:border-none "
+          className="p-4 text-lg font-medium leading-6 text-orange-700 border-b px-14 dark:text-white dark:opacity-90 dark:border-none "
         >
           {!isEdit ? "Add Invoice" : "Edit Invoice"}
         </Dialog.Title>
@@ -34,7 +42,7 @@ const ModalAddInvoice = ({
           <div className="flex w-full p-4">
             <div className="w-full">
               <div className="flex flex-col p-4">
-                <LabelForm htmlFor="date">Date</LabelForm>
+                <LabelForm>Date</LabelForm>
                 <InputForm
                   autoFocus
                   id="date"
@@ -46,31 +54,25 @@ const ModalAddInvoice = ({
                 />
               </div>
               <div className="flex flex-col p-4">
-                <LabelForm htmlFor="supplier">Supplier</LabelForm>
-                <Selector
+                <LabelForm>Supplier</LabelForm>
+                <Select
+                  onChange={handleOnChange}
                   name="supplier"
-                  placeholder="Select supplier"
-                  id="supplier"
-                  options={supplierOptions || ""}
-                  handleChange={(supplier) => setSupplier(supplier)}
-                  value={supplier}
+                  options={supplierOptions}
                 />
               </div>
-              <div className="flex flex-col p-4">
-                <LabelForm
-                  className="p-2 border rounded-md cursor-pointer"
-                  htmlFor="pdf"
-                >
+              {/* <div className="flex flex-col p-4 cursor-not-allowed">
+                <LabelForm className="p-2 border rounded-md cursor-not-allowed">
                   <div className="flex items-center justify-evenly">
                     Upload PDF <FaDownload></FaDownload>
                   </div>
                   <InputForm hidden name="pdf" id="pdf" autoFocus type="file" />
                 </LabelForm>
-              </div>
+              </div> */}
             </div>
             <div className="w-full">
               <div className="flex flex-col p-4">
-                <LabelForm htmlFor="amount">Amount</LabelForm>
+                <LabelForm>Amount</LabelForm>
                 <InputForm
                   id="amount"
                   autoFocus
@@ -81,14 +83,11 @@ const ModalAddInvoice = ({
                 />
               </div>
               <div className="flex flex-col p-4">
-                <LabelForm htmlFor="invoiceType">Invoice Type</LabelForm>
-                <Selector
-                  id="invoiceType"
-                  placeholder="Select invoice type"
+                <LabelForm>Invoice Type</LabelForm>
+                <Select
+                  onChange={handleOnChange}
                   name="invoiceType"
-                  options={invoicesType || ""}
-                  handleChange={(type) => setInvoiceType(type)}
-                  value={invoiceType}
+                  options={invoicesType}
                 />
               </div>
             </div>

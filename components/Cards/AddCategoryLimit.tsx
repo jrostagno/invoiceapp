@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { FaHandPointDown } from "react-icons/fa";
 import Title from "../Text/Title";

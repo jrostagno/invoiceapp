@@ -1,9 +1,5 @@
 import React from "react";
-
-interface SubtitleProps {
-  className?: string;
-  children: React.ReactNode;
-}
+import { SubtitleProps } from "../../types";
 
 const Subtitle: React.FC<SubtitleProps> = ({ className, children }) => {
   return (

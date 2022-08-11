@@ -1,9 +1,19 @@
-import React from "react";
+import React, { FC } from "react";
 import { Dialog } from "@headlessui/react";
 import ButtonDanger from "../Button/ButtonDanger";
 import ButtonPrimary from "../Button/ButtonPrimary";
 
-const ModalDelete = ({ setIsOpen, setIsDelete, handleDeleteInvoice }) => {
+interface ModalDeleteProps {
+  setIsOpen: (isOpen: boolean) => void;
+  setIsDelete: (isDelete: boolean) => void;
+  handleDeleteInvoice: () => void;
+}
+
+const ModalDelete: FC<ModalDeleteProps> = ({
+  setIsOpen,
+  setIsDelete,
+  handleDeleteInvoice,
+}) => {
   return (
     <div>
       <Dialog.Title

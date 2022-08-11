@@ -1,6 +1,6 @@
 import moment from "moment";
 
-export const montly = (month) => {
+export const montly = (month: number) => {
   switch (month) {
     case 1:
       return "jan";
@@ -49,7 +49,14 @@ export const getLabelsMonts = () => {
   return months.reverse();
 };
 
-export const parseInvoices = (invoices) => {
+type InvoiceProps = {
+  year: number;
+  month: string;
+  date: string;
+  amount: number;
+}[];
+
+export const parseInvoices = (invoices: InvoiceProps) => {
   const parseInvoices = invoices.map((invoice) => {
     invoice["year"] = new Date(invoice.date).getFullYear();
     invoice["month"] = montly(new Date(invoice.date).getMonth() + 1);
@@ -63,14 +70,14 @@ export const parseInvoices = (invoices) => {
 export const parseLabels = () => {
   let labels = getLabelsMonts().map((label) => {
     return `${label.split("-")[0]}-${label.split("-")[1][2]}${
-      label.split("-")[1][2]
+      label.split("-")[1][3]
     }`;
   });
 
   return labels;
 };
 
-export const getMontshAmount = (allinvoices) => {
+export const getMontshAmount = (allinvoices: InvoiceProps) => {
   const invoices = parseInvoices(allinvoices);
 
   const labels = getLabelsMonts();

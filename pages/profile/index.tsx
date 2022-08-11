@@ -10,8 +10,13 @@ import AppLayout from "../../components/Layout/AppLayout";
 import { PanelCard } from "../../components/Panel/PanelCard";
 import LabelForm from "../../components/Text/LabelForm";
 import Title from "../../components/Text/Title";
+import { Session } from "../../types";
 
-const register = ({ session }) => {
+interface RegisterProps {
+  session: Session;
+}
+
+const Register: React.FC<RegisterProps> = ({ session }) => {
   return (
     <AppLayout session={session}>
       <Head>
@@ -19,7 +24,7 @@ const register = ({ session }) => {
       </Head>
 
       <div className="w-full ">
-        <PanelCard size="med">
+        <PanelCard size="md">
           <Title className="p-4">Personal information</Title>
           <form>
             <UploadImages
@@ -27,7 +32,7 @@ const register = ({ session }) => {
               className="flex justify-center mt-4"
             ></UploadImages>
             <div className="flex flex-col justify-between w-full p-4">
-              <LabelForm htmlFor="userName">Name</LabelForm>
+              <LabelForm>Name</LabelForm>
               <InputForm
                 autoFocus
                 required
@@ -38,7 +43,7 @@ const register = ({ session }) => {
               />
             </div>
             <div className="flex flex-col justify-between w-full p-4">
-              <LabelForm htmlFor="email">Email</LabelForm>
+              <LabelForm>Email</LabelForm>
               <InputForm
                 autoFocus
                 required
@@ -49,8 +54,12 @@ const register = ({ session }) => {
               />
             </div>
             <div className="flex justify-end gap-2 px-4">
-              <ButtonDanger>Close Account</ButtonDanger>
-              <ButtonPrimary>Update</ButtonPrimary>
+              <ButtonDanger className="cursor-not-allowed">
+                Close Account
+              </ButtonDanger>
+              <ButtonPrimary className="cursor-not-allowed">
+                Update
+              </ButtonPrimary>
             </div>
           </form>
         </PanelCard>
@@ -59,9 +68,9 @@ const register = ({ session }) => {
   );
 };
 
-export default register;
+export default Register;
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps = async (context: any) => {
   const session = await getSession(context);
 
   if (!session)

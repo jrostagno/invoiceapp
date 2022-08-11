@@ -2,9 +2,13 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import conectarDB from "../../lib/dbConnect";
 import Invoice from "../../models/Invoice";
+import { InvoiceProps } from "../../types";
 
 type Data = {
-  name: string;
+  name?: string;
+  success: boolean;
+  invoice?: InvoiceProps;
+  error?: any;
 };
 
 export default async function handler(
@@ -25,16 +29,16 @@ export default async function handler(
       } catch (error) {
         return res.status(400).json({ success: false, error });
       }
-    case "GET":
-      try {
-        const invoice = await Invoice.find();
-        if (!invoice) {
-          return res.status(404).json({ success: false });
-        }
-        return res.status(200).json({ success: true, data: invoice });
-      } catch (error) {
-        return res.status(404).json({ success: false, error });
-      }
+    // case "GET":
+    //   try {
+    //     const invoice = await Invoice.find();
+    //     if (!invoice) {
+    //       return res.status(404).json({ success: false });
+    //     }
+    //     return res.status(200).json({ success: true, data: invoice });
+    //   } catch (error) {
+    //     return res.status(404).json({ success: false, error });
+    //   }
 
     default:
       return res

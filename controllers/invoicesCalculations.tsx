@@ -1,19 +1,30 @@
 import moment from "moment";
+import { getLabelsMonts, montly } from "../components/Graphics/graphics";
+import { Invoices } from "../types";
 
-export const currentYearlyAmount = (invoices) => {
+export const currentYearAmount = (invoices: Invoices) => {
   let totalAmount = 0;
 
-  for (let i = 0; i < invoices.length; i++) {
-    let time = moment(invoices.date, "YYYYMMDD").fromNow().split(" ");
+  let lastYearMonth = getLabelsMonts();
 
-    if (time[1] !== "year" && time[0] !== "in") {
-      totalAmount += invoices[i].amount;
+  for (let i = 0; i < invoices.length; i++) {
+    let invoiceMonth = montly(new Date(invoices[i].date).getMonth() + 1);
+    let invoiceYear = new Date(invoices[i].date).getFullYear().toString();
+
+    for (let j = 0; j < lastYearMonth.length; j++) {
+      let month = lastYearMonth[j].split("-")[0];
+      let year = lastYearMonth[j].split("-")[1];
+
+      if (month === invoiceMonth && year === invoiceYear) {
+        totalAmount += invoices[i].amount;
+      }
     }
   }
+
   return totalAmount;
 };
 
-export const currentMonthAmount = (invoices) => {
+export const currentMonthAmount = (invoices: Invoices) => {
   let totalAmount = 0;
 
   const currentMonth = new Date().getMonth();
@@ -31,7 +42,7 @@ export const currentMonthAmount = (invoices) => {
   return totalAmount;
 };
 
-export const lastMonthAmount = (invoices) => {
+export const lastMonthAmount = (invoices: Invoices) => {
   let totalAmount = 0;
 
   const today = new Date();

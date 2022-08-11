@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { useSession, signIn, getProviders, getSession } from "next-auth/react";
 import AppLayout from "../components/Layout/AppLayout";
 import Head from "next/head";
@@ -7,8 +7,13 @@ import { useRouter } from "next/router";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import InfoLabels from "../components/Text/InfoLabels";
+import { Providers } from "../types";
 
-const SignIn = ({ providers }) => {
+interface SignInProps {
+  providers: Providers;
+}
+
+const SignIn: FC<SignInProps> = ({ providers }) => {
   const router = useRouter();
   const { data: session, status } = useSession();
 
@@ -19,7 +24,7 @@ const SignIn = ({ providers }) => {
   return (
     <AppLayout>
       <Head>
-        <title>Invoiceapp</title>
+        <title>InvoiceApp-login</title>
       </Head>
       <div className="min-h-screen">
         <div className="flex flex-col justify-center mt-14 sm:ml-16">
@@ -35,17 +40,17 @@ const SignIn = ({ providers }) => {
             Login
           </InfoLabels>
           <div className="flex flex-col gap-4 p-6">
-            {Object.values(providers).map((provider) => (
+            {Object.values(providers).map((element) => (
               <button
                 className="p-4 tracking-widest transition duration-150 ease-in-out bg-gray-100 border rounded-md shadow-md cursor-pointer dark:hover:bg-[#1e293b] focus:outline-none focus:border-gray-900 focus:ring ring-gray-300"
-                key={provider.name}
-                onClick={() => signIn(provider.id)}
+                key={element.name}
+                onClick={() => signIn(element.id)}
               >
                 <div className="flex items-center justify-evenly">
                   <h1 className="text-lg font-medium text-gray-500 transition duration-150 ease-in-out hover:text-green-400">
-                    Sing in {provider.name}
+                    Sing in {element.name}
                   </h1>
-                  {provider.id === "github" ? (
+                  {element.id === "github" ? (
                     <FaGithub
                       className=" dark:text-green-400"
                       style={{ fontSize: "2.5em" }}
@@ -68,7 +73,7 @@ const SignIn = ({ providers }) => {
 
 export default SignIn;
 
-SignIn.getInitialProps = async (context) => {
+SignIn.getInitialProps = async (context: any) => {
   const { req, res } = context;
 
   const session = await getSession({ req });

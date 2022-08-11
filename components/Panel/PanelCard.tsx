@@ -1,6 +1,5 @@
 import React, { FC } from "react";
-
-type Size = "sm" | "md" | "lg" | "full" | "xl";
+import { PanelCardsProps, PanelTableProps, Size } from "../../types";
 
 function calcSize(size: Size) {
   switch (size) {
@@ -17,16 +16,6 @@ function calcSize(size: Size) {
     default:
       return "max-w-xl";
   }
-}
-
-interface PanelCardsProps {
-  className?: string;
-  children: React.ReactNode;
-  size: Size;
-}
-interface PanelTableProps {
-  children: React.ReactNode;
-  size: Size;
 }
 
 export const PanelCard: FC<PanelCardsProps> = ({

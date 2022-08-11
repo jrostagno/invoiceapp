@@ -1,5 +1,5 @@
 //GET CALCULATIONS
-export const getCalculation = (userId) => {
+export const getCalculation = (userId: string) => {
   try {
     const data = fetch(`/api/calculation/${userId}`, { method: "GET" }).then(
       (res) => res.json()

@@ -1,4 +1,3 @@
-import type { NextPage } from "next";
 import Head from "next/head";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -7,7 +6,7 @@ import CategoryCard from "../../components/Cards/CategoryCard";
 import InfoCard from "../../components/Cards/InfoCard";
 import YearlyInvoice from "../../components/Cards/YearlyInvoice";
 import Invoices from "../../components/Invoices/Invoices";
-import { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { PanelCard, PanelTable } from "../../components/Panel/PanelCard";
 import dbConnect from "../../lib/dbConnect";
 import { formatNumber } from "../../services/formaters";
@@ -19,16 +18,41 @@ import {
   getUserCategory,
   postCategoryAmount,
 } from "../../services/categories";
+import { InvoiceProps, Session } from "../../types";
 
-const Dashboard: NextPage = ({ session }) => {
+export interface DashboardProps {
+  session: Session;
+}
+
+export interface UserCategoryProps {
+  amount: number;
+  _id: string;
+}
+
+export interface YearlyInvoiceProps {
+  currentMonth: number;
+  lastMonthAmount: number;
+  yearly: number;
+}
+
+export type setInvoiceProps = InvoiceProps[];
+
+const Dashboard: React.FC<DashboardProps> = ({ session }) => {
   const router = useRouter();
 
   const [category, setCategory] = useState(0);
-  const [userCategory, setUserCategory] = useState({ amount: 0 });
+  const [userCategory, setUserCategory] = useState<UserCategoryProps>({
+    amount: 0,
+    _id: "",
+  });
 
   const [isDisabled, setIsDisabled] = useState(false);
-  const [invoices, setInvoices] = useState([]);
-  const [yearlyInvoiced, setYearlyInvoiced] = useState(0);
+  const [invoices, setInvoices] = useState<setInvoiceProps>([]);
+  const [yearlyInvoiced, setYearlyInvoiced] = useState<YearlyInvoiceProps>({
+    currentMonth: 0,
+    lastMonthAmount: 0,
+    yearly: 0,
+  });
 
   useEffect(() => {
     getUserInvoices(session.user.id).then((res) => setInvoices(res.data));
@@ -41,12 +65,12 @@ const Dashboard: NextPage = ({ session }) => {
     });
   }, []);
 
-  const handleChange = (e) => {
-    setCategory(e.target.value);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCategory(Number(event.target.value));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if (isDisabled) {
       await editCategoryAmount(
         {
@@ -56,8 +80,10 @@ const Dashboard: NextPage = ({ session }) => {
         userCategory?._id
       );
       getUserCategory(session.user.id)
-        .then((res) => setUserCategory(res.data[0]))
-        .then(() => setCategory(""));
+        .then((res) => {
+          setUserCategory(res.data[0]);
+        })
+        .then(() => setCategory(0));
     } else {
       await postCategoryAmount({
         amount: category,
@@ -135,7 +161,7 @@ const Dashboard: NextPage = ({ session }) => {
 
 export default Dashboard;
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps = async (context: any) => {
   const session = await getSession(context);
 
   if (!session)

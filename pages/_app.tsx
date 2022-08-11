@@ -5,7 +5,7 @@ import { ThemeProvider } from "next-themes";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider enableSystem="true" attribute="class">
+    <ThemeProvider enableSystem attribute="class">
       <SessionProvider>
         <Component {...pageProps} />
       </SessionProvider>

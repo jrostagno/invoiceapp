@@ -1,14 +1,15 @@
-import { Fragment, useRef } from "react";
+import React, { FC, Fragment, useRef } from "react";
 
 import { Dialog, Transition } from "@headlessui/react";
+import { SizeDialog } from "../../types";
 
-function calcSize(s) {
+function calcSize(s: SizeDialog) {
   switch (s) {
     case "xs":
       return "max-w-xs";
     case "sm":
       return "max-w-2xl";
-    case "med":
+    case "md":
       return "max-w-4xl";
     case "full":
       return "max-w-full";
@@ -18,31 +19,27 @@ function calcSize(s) {
   }
 }
 
-export default function DialogModal({
+interface DialogModalProps {
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
+  size: SizeDialog;
+  modal: JSX.Element;
+}
+
+export const DialogModal: FC<DialogModalProps> = ({
   isOpen = false,
-  setIsOpen = setIsOpen(false),
+  setIsOpen,
   size,
   modal,
-}) {
+}) => {
   const completeButtonRef = useRef(null);
   function closeModal() {
     setIsOpen(false);
   }
 
-  function handleKeyPress(event) {
-    if (event.key === "Enter") {
-      setIsOpen(false);
-    }
-  }
-
   return (
     <div>
-      <Transition
-        appear
-        as={Fragment}
-        show={isOpen}
-        onKeyPress={handleKeyPress}
-      >
+      <Transition appear as={Fragment} show={isOpen}>
         <Dialog
           as="div"
           className="fixed inset-0 z-10 overflow-y-auto bg-black/30"
@@ -81,7 +78,7 @@ export default function DialogModal({
                   size
                 )}`}
               >
-                <div noValidate className="flex flex-col p-0 dark:bg-slate-700">
+                <div className="flex flex-col p-0 dark:bg-slate-700">
                   {modal}
                 </div>
               </div>
@@ -91,4 +88,4 @@ export default function DialogModal({
       </Transition>
     </div>
   );
-}
+};
