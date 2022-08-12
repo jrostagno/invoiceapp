@@ -6,7 +6,7 @@ import { ThemeProvider } from "next-themes";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider enableSystem attribute="class">
-      <SessionProvider session={pageProps.session} refetchInterval={0}>
+      <SessionProvider>
         <Component {...pageProps} />
       </SessionProvider>
     </ThemeProvider>
