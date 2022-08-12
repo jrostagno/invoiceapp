@@ -73,7 +73,25 @@ const SignIn: FC<SignInProps> = ({ providers }) => {
 
 export default SignIn;
 
-SignIn.getInitialProps = async (context: any) => {
+// SignIn.getInitialProps = async (context: any) => {
+//   const { req, res } = context;
+
+//   const session = await getSession({ req });
+
+//   if (session && res && session.accessToken) {
+//     res.writeHead(302, { Location: "/" });
+
+//     res.end();
+//     return;
+//   }
+
+//   return {
+//     session: undefined,
+//     providers: await getProviders(context),
+//   };
+// };
+
+export const getServerSideProps = async (context: any) => {
   const { req, res } = context;
 
   const session = await getSession({ req });
@@ -86,7 +104,9 @@ SignIn.getInitialProps = async (context: any) => {
   }
 
   return {
-    session: undefined,
-    providers: await getProviders(context),
+    props: {
+      session,
+      providers: await getProviders(),
+    },
   };
 };

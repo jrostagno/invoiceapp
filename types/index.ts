@@ -1,3 +1,5 @@
+import { FormEvent } from "react";
+
 //BUTTONS
 export interface ButtonDangerProps {
   className?: string;
@@ -171,9 +173,9 @@ export interface CategoryProps {
 // CALCULATIONS
 
 export interface CalculationsProps {
-  invoiceLimit: number;
-  currentMonth: number;
-  lastMonth: number;
+  invoiceLimit?: number;
+  currentMonth?: number;
+  lastMonth?: number;
 }
 
 // PAGINATION
