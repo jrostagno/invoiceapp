@@ -32,7 +32,7 @@ First enter your category amount...
 
 Dashboard...
 
-![Screenshot](https://res.cloudinary.com/dlw5hqmkj/image/upload/v1660576607/invoiceapp3_qdv2wu.png)
+![Screenshot](https://res.cloudinary.com/dlw5hqmkj/image/upload/v1660577131/invoiceapp4_gg6q9b.png)
 
 ### Clean code 💅🏻
 
