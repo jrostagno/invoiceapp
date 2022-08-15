@@ -22,13 +22,21 @@ npm install & npm run dev
 
 ### Some screenshots
 
-![Screenshot](https://res.cloudinary.com/dlw5hqmkj/image/upload/v1659028470/test2_uriqa8.png)
+GitHub login page...
+
+![Screenshot](https://res.cloudinary.com/dlw5hqmkj/image/upload/v1660576606/invoiceapp1_wtplcy.png)
+
+First enter your category amount...
+
+![Screenshot](https://res.cloudinary.com/dlw5hqmkj/image/upload/v1660576606/invoiceapp2_xpxoht.png)
+
+Dashboard...
+
+![Screenshot](https://res.cloudinary.com/dlw5hqmkj/image/upload/v1660576607/invoiceapp3_qdv2wu.png)
 
 ### Clean code 💅🏻
 
-I use Prettier and I've added too ESLint rules that order correctly the imports lines by group and order alphabetically props components.
-
-![Screenshot](https://res.cloudinary.com/dlw5hqmkj/image/upload/v1659024546/eslint_fz1gzl.png)
+I use Prettier and ESlint.
 
 ### Build-with 🛠️
 
