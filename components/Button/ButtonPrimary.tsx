@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { ButtonsPrimaryProps } from "../../types";
 
 const btnStyles: string =
-  "px-3 py-1 mt-2 text-sm border border-transparent  rounded-md tracking-widest focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150";
+  "px-3 py-1 mt-2  text-xs sm:text-sm border border-transparent  rounded-md tracking-widest focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150";
 
 const ButtonPrimary: FC<ButtonsPrimaryProps> = ({
   className,

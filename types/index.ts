@@ -76,7 +76,7 @@ export interface InfoCardProps {
   lastMonth: string;
 }
 
-export interface YearlyInvoiceProps {
+export interface CardYearlyInvoiceProps {
   amount: string;
   label: string;
 }
@@ -185,4 +185,25 @@ export interface PaginationProps {
   nextPage: () => void;
   prevPage: () => void;
   currentPage: number;
+}
+
+//INVOICES PROPS
+
+export interface UserCategoryProps {
+  amount: number;
+  _id: string;
+}
+export interface YearlyInvoiceProps {
+  currentMonth: number;
+  lastMonthAmount: number;
+  yearly: number;
+}
+
+export type setInvoiceProps = InvoiceProps[];
+
+export interface SetFormProps {
+  supplier: string;
+  invoiceType: string;
+  date: string;
+  amount: number;
 }

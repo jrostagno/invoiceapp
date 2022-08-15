@@ -2,6 +2,8 @@ import React, { FC } from "react";
 
 interface SelectProps {
   options: { label: string; value: string }[];
+  required?: boolean;
+  value: string;
   onChange: (
     e:
       | React.ChangeEvent<HTMLInputElement>
@@ -21,7 +23,7 @@ const Select: FC<SelectProps> = ({ options, name, onChange, ...props }) => {
     >
       {options.map((el, i) => (
         <option key={i} value={el.value}>
-          {el.label}
+          {el.value}
         </option>
       ))}
     </select>

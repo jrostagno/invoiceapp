@@ -27,7 +27,7 @@ export const PanelCard: FC<PanelCardsProps> = ({
     <div
       className={` ${className || ""} ${calcSize(
         size
-      )}  px-6 mx-auto my-8 py-6 mb-4 bg-white border rounded-md shadow-md dark:bg-[#1e293b] dark:border-0`}
+      )}  sm:px-6 px-2 mx-auto my-8 py-6 mb-4 bg-white border rounded-md shadow-md dark:bg-[#1e293b] dark:border-0`}
     >
       {children}
     </div>

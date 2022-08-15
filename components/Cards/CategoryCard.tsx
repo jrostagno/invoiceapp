@@ -12,12 +12,12 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
   return (
     <form onSubmit={handleSubmit}>
       <div className="flex justify-between">
-        <label className="text-lg text-gray-500 dark:text-green-300 dark:opacity-60">
+        <label className="text-sm text-gray-500 sm:text-lg dark:text-green-300 dark:opacity-60">
           Category Limit
         </label>
         <Link href="https://www.afip.gob.ar/monotributo/categorias.asp">
           <a target="_blank">
-            <h3 className="mr-2 text-sm text-gray-600 dark:text-gray-300 dark:opacity-60 dark:hover:text-red-400 hover:text-red-400 hover:animate-bounce">
+            <h3 className="mr-2 text-xs text-gray-600 sm:text-sm dark:text-gray-300 dark:opacity-60 dark:hover:text-red-400 hover:text-red-400 hover:animate-bounce">
               All categories
             </h3>
           </a>

@@ -5,6 +5,7 @@ export const invoicesType: { label: string; value: string }[] = [
   { label: "Invoice type B", value: "Invoice type B" },
   { label: "Invoice type C", value: "Invoice type C" },
   { label: "Invoice type E", value: "Invoice type E" },
+  { label: "Choose invoice type", value: "Choose invoice type" },
 ];
 
 export const supplierOptions: { label: string; value: string }[] = [
@@ -12,4 +13,5 @@ export const supplierOptions: { label: string; value: string }[] = [
   { label: "IVA responsable inscripto", value: "IVA responsable inscripto" },
   { label: "Resposable monotributista", value: "Resposable monotributista" },
   { label: "Cliente del exterior", value: "Cliente del exterior" },
+  { label: "Choose supplier", value: "Choose supplier" },
 ];

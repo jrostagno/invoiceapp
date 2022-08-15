@@ -4,7 +4,7 @@ import { NumLabelsProps } from "../../types";
 const NumLabels: React.FC<NumLabelsProps> = ({ children, className }) => {
   return (
     <label
-      className={`${className || ""} text-xl  
+      className={`${className || ""} sm:text-xl text-base  
        "text-slate-600 dark:text-slate-400 dark:opacity-60"
        `}
     >

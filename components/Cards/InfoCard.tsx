@@ -13,7 +13,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
   lastMonth,
 }) => {
   return (
-    <div className="flex flex-col gap-2 p-3">
+    <div className="flex flex-col gap-2 p-1 sm:p-3">
       <SubPanelInfo>
         <InfoLabels>Invoice limits</InfoLabels>
         <NumLabels>{invoiceLimit}</NumLabels>

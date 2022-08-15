@@ -18,24 +18,16 @@ import {
   getUserCategory,
   postCategoryAmount,
 } from "../../services/categories";
-import { InvoiceProps, Session } from "../../types";
+import {
+  Session,
+  setInvoiceProps,
+  UserCategoryProps,
+  YearlyInvoiceProps,
+} from "../../types";
 
 export interface DashboardProps {
   session: Session;
 }
-
-export interface UserCategoryProps {
-  amount: number;
-  _id: string;
-}
-
-export interface YearlyInvoiceProps {
-  currentMonth: number;
-  lastMonthAmount: number;
-  yearly: number;
-}
-
-export type setInvoiceProps = InvoiceProps[];
 
 const Dashboard: React.FC<DashboardProps> = ({ session }) => {
   const router = useRouter();

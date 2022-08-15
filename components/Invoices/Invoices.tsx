@@ -18,8 +18,13 @@ import ModalDelete from "../Modal/ModalDelete";
 
 import InfoLabels from "../Text/InfoLabels";
 import { getCalculation } from "../../services/calculations";
-import { Invoices, Session, InvoiceProps, InvoiceElement } from "../../types";
-import { YearlyInvoiceProps } from "../../pages/invoices";
+import {
+  Invoices,
+  Session,
+  SetFormProps,
+  YearlyInvoiceProps,
+} from "../../types";
+
 import Pagination from "../Pagination/Pagination";
 
 interface InvoicesProps {
@@ -27,12 +32,6 @@ interface InvoicesProps {
   setYearlyInvoiced: (yearlyInvoiced: YearlyInvoiceProps) => void;
   invoices: Invoices;
   setInvoices: (invoice: Invoices) => void;
-}
-interface SetFormProps {
-  supplier: string;
-  invoiceType: string;
-  date: string;
-  amount: number;
 }
 
 const Invoices: FC<InvoicesProps> = ({
@@ -54,7 +53,7 @@ const Invoices: FC<InvoicesProps> = ({
   });
 
   const [currentPage, setCurrentPage] = useState(1);
-  const listPerPage = 5;
+  const listPerPage = 7;
   const indexOfLastList = currentPage * listPerPage;
   const indexOfFirstList = indexOfLastList - listPerPage;
   const currentList = invoices.slice(indexOfFirstList, indexOfLastList);
@@ -186,19 +185,27 @@ const Invoices: FC<InvoicesProps> = ({
         list={currentList}
         cells={[
           (element) => (
-            <h1 className="text-center">{dateFormater(element.date)}</h1>
+            <h1 className="text-center sm:truncate">
+              {dateFormater(element.date)}
+            </h1>
           ),
-          (element) => <h1 className="text-center">{element.supplier}</h1>,
-          (element) => <h1 className="text-center">{element.invoiceType}</h1>,
           (element) => (
-            <h1 className="text-center">{formatNumber(element.amount)}</h1>
+            <h1 className="text-center sm:text-clip">{element.supplier}</h1>
+          ),
+          (element) => (
+            <h1 className="text-center sm:truncate">{element.invoiceType}</h1>
+          ),
+          (element) => (
+            <h1 className="text-center truncate">
+              {formatNumber(element.amount)}
+            </h1>
           ),
 
           (element) => (
-            <div className="flex justify-evenly">
+            <div className="flex justify-between sm:justify-evenly">
               {actions.map((invoice, index) => (
                 <button
-                  className="duration-300 ease-in-out delay-150 hover:transition dark:hover:text-green-400"
+                  className="duration-300 ease-in-out delay-150 sm:truncate hover:transition dark:hover:text-green-400"
                   key={index}
                   onClick={() => invoice.onclick(element)}
                 >

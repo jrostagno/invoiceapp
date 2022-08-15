@@ -10,7 +10,12 @@ import Select from "../input/Select";
 
 interface ModalAddInvoiceProps {
   isEdit: boolean;
-  form: { date: string; amount: number };
+  form: {
+    supplier: string;
+    invoiceType: string;
+    date: string;
+    amount: number;
+  };
   handleOnChange: (
     e:
       | React.ChangeEvent<HTMLInputElement>
@@ -44,21 +49,28 @@ const ModalAddInvoice: FC<ModalAddInvoiceProps> = ({
               <div className="flex flex-col p-4">
                 <LabelForm>Date</LabelForm>
                 <InputForm
+                  required
                   autoFocus
                   id="date"
                   name="date"
                   placeholder="Enter date"
                   type="date"
-                  value={form.date || ""}
+                  value={
+                    form.date === ""
+                      ? ""
+                      : new Date(form.date).toISOString().slice(0, 10)
+                  }
                   onChange={handleOnChange}
                 />
               </div>
               <div className="flex flex-col p-4">
                 <LabelForm>Supplier</LabelForm>
                 <Select
+                  required
                   onChange={handleOnChange}
                   name="supplier"
                   options={supplierOptions}
+                  value={form.supplier || "Choose supplier"}
                 />
               </div>
               {/* <div className="flex flex-col p-4 cursor-not-allowed">
@@ -74,6 +86,7 @@ const ModalAddInvoice: FC<ModalAddInvoiceProps> = ({
               <div className="flex flex-col p-4">
                 <LabelForm>Amount</LabelForm>
                 <InputForm
+                  required
                   id="amount"
                   autoFocus
                   name="amount"
@@ -85,9 +98,11 @@ const ModalAddInvoice: FC<ModalAddInvoiceProps> = ({
               <div className="flex flex-col p-4">
                 <LabelForm>Invoice Type</LabelForm>
                 <Select
+                  required
                   onChange={handleOnChange}
                   name="invoiceType"
                   options={invoicesType}
+                  value={form.invoiceType || "Choose invoice type"}
                 />
               </div>
             </div>

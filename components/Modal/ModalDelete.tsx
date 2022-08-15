@@ -11,7 +11,6 @@ interface ModalDeleteProps {
 
 const ModalDelete: FC<ModalDeleteProps> = ({
   setIsOpen,
-  setIsDelete,
   handleDeleteInvoice,
 }) => {
   return (

@@ -9,8 +9,8 @@ import AppLayout from "../../components/Layout/AppLayout";
 
 import { PanelCard } from "../../components/Panel/PanelCard";
 import LabelForm from "../../components/Text/LabelForm";
-import Title from "../../components/Text/Title";
 import { Session } from "../../types";
+import Title from "../../components/Text/Title";
 
 interface RegisterProps {
   session: Session;
